@@ -2,6 +2,13 @@
 [Tt]humbs.db
 *.DS_Store
 
+#Unity Schtuffs
+Library
+Temp
+*.csproj
+*.unityproj
+*.sln
+
 #Visual Studio files
 *.[Oo]bj
 *.user
