@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Maize
 {
-    class MazeGraph
+   public class MazeGraph
     {
-        MazeNode[, ,] graph;
+		public MazeNode[, ,] graph { get; set; }
         ArrayList forest;
         ArrayList edges;
 
         public MazeGraph(int size)
         {
             //Allocate space for graph
-            graph = new MazeNode[size, size, size];
+            this.graph = new MazeNode[size, size, size];
 
             //Set of nodes for Kruskal's algorithm
             forest = new ArrayList();
