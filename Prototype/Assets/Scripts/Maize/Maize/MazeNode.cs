@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 namespace Maize
 {
-    class MazeNode
+   public class MazeNode
     {
         public int x_loc { get; set; }
         public int y_loc { get; set; }
