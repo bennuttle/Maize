@@ -10,7 +10,7 @@ namespace Maize
     {
         static void Main(string[] args)
         {
-            MazeGraph test = new MazeGraph(10);
+            MazeGraph test = new MazeGraph(20);
         }
     }
 }

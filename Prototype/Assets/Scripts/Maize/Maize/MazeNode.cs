@@ -20,11 +20,15 @@ namespace Maize
         public MazeNode z_plus { get; set; }
         public MazeNode z_minus { get; set; }
 
+        public MazeNode parent { get; set; }
+
         public MazeNode(int x, int y, int z)
         {
             this.x_loc = x;
             this.y_loc = y;
             this.z_loc = z;
+
+            parent = this;
         }
 
         /*public bool isConnected(MazeNode other)
@@ -69,6 +73,8 @@ namespace Maize
                 Console.WriteLine("Error: Nodes not adjacent!\n" + "This: " + x_loc + ", " + y_loc + ", " + z_loc + "\n"
                     + "Other: " + other.x_loc + ", " + other.y_loc + ", " + other.z_loc + "\n");
             }
+
+            merge(other);
         }
 
         private void pairwiseAddXPlus(MazeNode other)
@@ -135,6 +141,33 @@ namespace Maize
         public void printLocation()
         {
             Console.WriteLine("Node Location: " + x_loc + ", " + y_loc + ", " + z_loc + "\n");
+        }
+
+        public MazeNode find()
+        {
+            if (parent == this)
+            {
+                return this;
+            }
+
+            return parent.find();
+        }
+
+        public void merge(MazeNode other)
+        {
+            MazeNode my_root = find();
+            MazeNode their_root = other.find();
+
+            my_root.parent = their_root;
+        }
+
+        public bool isConnected(MazeNode other)
+        {
+            //Console.Write("me: ");
+            //find().printLocation();
+            //Console.Write("them: ");
+            //other.find().printLocation();
+            return find() == other.find();
         }
     }
 }

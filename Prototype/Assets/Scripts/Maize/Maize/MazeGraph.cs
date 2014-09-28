@@ -40,6 +40,7 @@ namespace Maize
                         forest.Add(graph[x, y, z]);
 
                         //Add edges to a set for consideration. Nodes are not yet connected.
+                        /*
                         if(x > 0)
                         {
                             edges.Add(new MazeEdge(graph[x, y, z], graph[x - 1, y, z]));
@@ -53,37 +54,41 @@ namespace Maize
                         if (z > 0)
                         {
                             edges.Add(new MazeEdge(graph[x, y, z], graph[x, y, z - 1]));
-                        }
+                        }*/
                     }
                 }
             }
             generateEdges(size);
-            generateMaze();
-            BreadthFirstSearch(graph[0, 0, 0]);
+            generateMaze(size);
+            //BreadthFirstSearch(graph[0, 0, 0]);
             Console.ReadLine();
         }
 
         //Connect nodes to form a MST over the graph
         //A MST is our maze, with guaranteed access to every node and no loops.
-        private void generateMaze()
+        private void generateMaze(int size)
         {
             Random rand = new Random();
             int edgeIndex;
             MazeEdge currentEdge;
-
-            while (!isSingleTree())
+            int connections = 0;
+            while (connections < Math.Pow(size, 3) - 1)
             {
                 //Select an edge
                 edgeIndex = rand.Next(edges.Count);
                 currentEdge = (MazeEdge)edges[edgeIndex];
 
-                //Join the two nodes
-                currentEdge.joinedNodes[0].connect(currentEdge.joinedNodes[1]);
+                if (!(currentEdge.joinedNodes[0].isConnected(currentEdge.joinedNodes[1])))
+                {
+                    //join the two nodes
+                    currentEdge.joinedNodes[0].connect(currentEdge.joinedNodes[1]);
 
-                //Remove one of the two now-connected nodes from our forest
-                forest.Remove(currentEdge.joinedNodes[0]);
+                    //Remove one of the two now-connected nodes from our forest
+                    forest.Remove(currentEdge.joinedNodes[0]);
+                    connections++;
+                }
 
-                //Remove the edge we used from consideration
+                //Remove the edge we selected from consideration
                 edges.Remove(currentEdge);
             }
         }
@@ -118,14 +123,16 @@ namespace Maize
 
         private bool isSingleTree()
         {
-            int treeCount = 0;
+           // return forest.Count == 1;
+            return forest.Count == 1;
+           /* int treeCount = 0;
 
             foreach (MazeNode tree in forest)
             {
                     treeCount++;
             }
 
-            return treeCount == 1;
+            return treeCount == 1;*/
         }
 
         private void BreadthFirstSearch(MazeNode root)
