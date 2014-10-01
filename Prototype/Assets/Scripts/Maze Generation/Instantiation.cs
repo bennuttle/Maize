@@ -9,7 +9,7 @@ public class Instantiation : MonoBehaviour {
 	public Transform ceiling;
 	public Transform right;
 	public Transform left;
-	private int size = 2;
+	public int size = 2;
 	void Start () {
 		MazeGraph testthis = new MazeGraph (size);	
 		MazeNode [, ,] temp = testthis.graph;
