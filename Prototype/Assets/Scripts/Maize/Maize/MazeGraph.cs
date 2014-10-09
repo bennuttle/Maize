@@ -38,29 +38,14 @@ namespace Maize
                         //Store them in temporary 'forest' for Kruskal's algorithm
                         //Each node is a singleton tree at this point
                         forest.Add(graph[x, y, z]);
-
-                        //Add edges to a set for consideration. Nodes are not yet connected.
-                        /*
-                        if(x > 0)
-                        {
-                            edges.Add(new MazeEdge(graph[x, y, z], graph[x - 1, y, z]));
-                        }
-
-                        if (y > 0)
-                        {
-                            edges.Add(new MazeEdge(graph[x, y, z], graph[x, y - 1, z]));
-                        }
-
-                        if (z > 0)
-                        {
-                            edges.Add(new MazeEdge(graph[x, y, z], graph[x, y, z - 1]));
-                        }*/
                     }
                 }
             }
             generateEdges(size);
             generateMaze(size);
+            //Console.WriteLine("here are some distances!");
             //BreadthFirstSearch(graph[0, 0, 0]);
+            AStarSearch(graph[0, 0, 0], graph[size - 1, size - 1, size - 1]);
             Console.ReadLine();
         }
 
@@ -121,20 +106,6 @@ namespace Maize
             }
         }
 
-        private bool isSingleTree()
-        {
-           // return forest.Count == 1;
-            return forest.Count == 1;
-           /* int treeCount = 0;
-
-            foreach (MazeNode tree in forest)
-            {
-                    treeCount++;
-            }
-
-            return treeCount == 1;*/
-        }
-
         private void BreadthFirstSearch(MazeNode root)
         {
             Queue nodes = new Queue();
@@ -163,8 +134,81 @@ namespace Maize
 
             foreach (MazeNode visit in vertices)
             {
-                visit.printLocation();
+                //visit.printLocation();
+                Console.WriteLine(visit.manhattanDistance(root));
             }
+        }
+
+        private void AStarSearch(MazeNode start, MazeNode goal)
+        {
+            HashSet<MazeNode> closed = new HashSet<MazeNode>();
+            HashSet<MazeNode> open = new HashSet<MazeNode>();
+            MazeNode current;
+            ArrayList children;
+            int GScoreEstimate;
+            start.g = 0;
+            start.h = start.manhattanDistance(goal);
+            start.f = start.g + start.h;
+            start.a_star_parent = start;
+            open.Add(start);
+            
+            while (open.Count > 0)
+            {
+                current = open.Min();
+                if (current == goal)
+                {
+                    Console.WriteLine("found it!");
+                    Stack<MazeNode> path_to_goal = new Stack<MazeNode>();
+                    while (current.a_star_parent != current)
+                    {
+                        path_to_goal.Push(current);
+                        //current.printLocation();
+                        current = current.a_star_parent;
+                    }
+                    path_to_goal.Push(current);
+
+                    while (path_to_goal.Count > 0)
+                    {
+                        current = path_to_goal.Pop();
+                        current.printLocation();
+                    }
+                    current.printLocation();
+                    return;
+                    //stop search here, goal found
+                }
+                open.Remove(current);
+                closed.Add(current);
+                children = current.getAdjacentEdges();
+                foreach (MazeNode child in children)
+                {
+                    // If we've visited this node already, skip it.
+                    if (closed.Contains(child))
+                    {
+                        continue;
+                    }
+
+                    //g is computed as the cost it took us to get here, plus the distance between the
+                    // current node and the child we're considering.
+                    GScoreEstimate = (int)(current.g) + current.manhattanDistance(child);
+
+                    //If we haven't considered this node already, or our current estimate is more optimistic
+                    // than our prior estimation 
+                    if (!open.Contains(child) || GScoreEstimate < child.g)
+                    {
+                        child.g = GScoreEstimate;
+                        child.f = child.g + child.manhattanDistance(goal);
+
+                        if(!open.Contains(child))
+                        {
+                            open.Add(child);
+                        }
+
+                        child.a_star_parent = current;
+                    }
+                }
+                closed.Add(current);
+            }
+            Console.WriteLine("Search failed!");
         }
     }
 }

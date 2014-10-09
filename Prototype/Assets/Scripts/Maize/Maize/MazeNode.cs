@@ -7,12 +7,14 @@ using System.Text;
 
 namespace Maize
 {
-   public class MazeNode
+   public class MazeNode : IComparable<MazeNode>
     {
+       //XYZ Coordinates
         public int x_loc { get; set; }
         public int y_loc { get; set; }
         public int z_loc { get; set; }
 
+       //Pointers to neighbor nodes, for pathing
         public MazeNode x_plus { get; set; }
         public MazeNode x_minus { get; set; }
         public MazeNode y_plus { get; set; }
@@ -20,7 +22,18 @@ namespace Maize
         public MazeNode z_plus { get; set; }
         public MazeNode z_minus { get; set; }
 
-        public MazeNode parent { get; set; }
+       //For Union-find data structure
+        public MazeNode union_find_parent { get; set; }
+
+       //For A* Search
+       // f = g + h
+       public double f { get; set; }
+       // g = (actual) cost it took us to get here
+       public double g { get; set; }
+       // h = (estimated) distance to goal. Current heuristic is manhattan distance
+       public double h { get; set; }
+
+       public MazeNode a_star_parent { get; set; }
 
         public MazeNode(int x, int y, int z)
         {
@@ -28,13 +41,26 @@ namespace Maize
             this.y_loc = y;
             this.z_loc = z;
 
-            parent = this;
+            union_find_parent = this;
+
+            f = 0;
+            g = Int32.MaxValue;
+            h = Int32.MaxValue;
         }
 
-        /*public bool isConnected(MazeNode other)
+       /* Comparator method for priority queue sorting in A* implementation
+        * A node with a lower f-score has a lower estimated overall cost and
+        * should therefore be considered first.
+        */
+        int IComparable<MazeNode>.CompareTo(MazeNode other)
         {
-
-        }*/
+            if (other.f > this.f)
+                return -1;
+            else if (other.f == this.f)
+                return 0;
+            else
+                return 1;
+        }
 
         public void connect(MazeNode other)
         {
@@ -145,29 +171,30 @@ namespace Maize
 
         public MazeNode find()
         {
-            if (parent == this)
+            if (union_find_parent == this)
             {
                 return this;
             }
 
-            return parent.find();
+            return union_find_parent.find();
         }
 
-        public void merge(MazeNode other)
+        private void merge(MazeNode other)
         {
             MazeNode my_root = find();
             MazeNode their_root = other.find();
 
-            my_root.parent = their_root;
+            my_root.union_find_parent = their_root;
         }
 
         public bool isConnected(MazeNode other)
         {
-            //Console.Write("me: ");
-            //find().printLocation();
-            //Console.Write("them: ");
-            //other.find().printLocation();
             return find() == other.find();
+        }
+
+        public int manhattanDistance(MazeNode other)
+        {
+            return Math.Abs(x_loc - other.x_loc) + Math.Abs(y_loc - other.y_loc) + Math.Abs(z_loc - other.z_loc);
         }
     }
 }
