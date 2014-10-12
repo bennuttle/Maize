@@ -45,19 +45,24 @@ namespace Maize
             generateMaze(size);
             //Console.WriteLine("here are some distances!");
             //BreadthFirstSearch(graph[0, 0, 0]);
-            AStarSearch(graph[0, 0, 0], graph[size - 1, size - 1, size - 1]);
-            Console.ReadLine();
+            //AStarSearch(graph[0, 0, 0], graph[size - 1, size - 1, size - 1]);
+            //Console.ReadLine();
         }
 
         //Connect nodes to form a MST over the graph
         //A MST is our maze, with guaranteed access to every node and no loops.
         private void generateMaze(int size)
         {
+
+
+            //TODO debug - few redundant edges.
             Random rand = new Random();
             int edgeIndex;
             MazeEdge currentEdge;
             int connections = 0;
             while (connections < Math.Pow(size, 3) - 1)
+            //while (forest.Count > 1)
+            //while (!allEdgesConnected())
             {
                 //Select an edge
                 edgeIndex = rand.Next(edges.Count);
@@ -69,13 +74,45 @@ namespace Maize
                     currentEdge.joinedNodes[0].connect(currentEdge.joinedNodes[1]);
 
                     //Remove one of the two now-connected nodes from our forest
-                    forest.Remove(currentEdge.joinedNodes[0]);
+                    if (forest.Contains(currentEdge.joinedNodes[0]))
+                    {
+                        forest.Remove(currentEdge.joinedNodes[0]);
+                    }
+                    else
+                    {
+                        forest.Remove(currentEdge.joinedNodes[1]);
+                    }
+                    //currentEdge.joinedNodes[0].printLocation();
                     connections++;
+                    edges.Remove(currentEdge);
                 }
 
                 //Remove the edge we selected from consideration
-                edges.Remove(currentEdge);
+                //edges.Remove(currentEdge);
             }
+            //Console.WriteLine(connections);
+            //Console.WriteLine(forest.Count);
+        }
+
+        private bool allEdgesConnected()
+        {
+            for (int x = 0; x < graph.GetLength(0); x++)
+            {
+                for (int y = 0; y < graph.GetLength(1); y++)
+                {
+                    for (int z = 0; z < graph.GetLength(2); z++)
+                    {
+                        foreach (MazeNode current in graph)
+                        {
+                            if(!current.isConnected(graph[x, y, z]))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         private void generateEdges(int size)
@@ -106,7 +143,7 @@ namespace Maize
             }
         }
 
-        private void BreadthFirstSearch(MazeNode root)
+        public HashSet<MazeNode> BreadthFirstSearch(MazeNode root)
         {
             Queue nodes = new Queue();
             HashSet<MazeNode> vertices = new HashSet<MazeNode>();
@@ -132,14 +169,10 @@ namespace Maize
                 }
             }
 
-            foreach (MazeNode visit in vertices)
-            {
-                //visit.printLocation();
-                Console.WriteLine(visit.manhattanDistance(root));
-            }
+            return vertices;
         }
 
-        private void AStarSearch(MazeNode start, MazeNode goal)
+        public Stack<MazeNode> AStarSearch(MazeNode start, MazeNode goal)
         {
             HashSet<MazeNode> closed = new HashSet<MazeNode>();
             HashSet<MazeNode> open = new HashSet<MazeNode>();
@@ -157,25 +190,18 @@ namespace Maize
                 current = open.Min();
                 if (current == goal)
                 {
-                    Console.WriteLine("found it!");
+                    //Retrieve the path we took via a stack
                     Stack<MazeNode> path_to_goal = new Stack<MazeNode>();
                     while (current.a_star_parent != current)
                     {
                         path_to_goal.Push(current);
-                        //current.printLocation();
                         current = current.a_star_parent;
                     }
                     path_to_goal.Push(current);
-
-                    while (path_to_goal.Count > 0)
-                    {
-                        current = path_to_goal.Pop();
-                        current.printLocation();
-                    }
-                    current.printLocation();
-                    return;
-                    //stop search here, goal found
+                    return path_to_goal;
                 }
+
+                //Else continue our search
                 open.Remove(current);
                 closed.Add(current);
                 children = current.getAdjacentEdges();
@@ -192,7 +218,7 @@ namespace Maize
                     GScoreEstimate = (int)(current.g) + current.manhattanDistance(child);
 
                     //If we haven't considered this node already, or our current estimate is more optimistic
-                    // than our prior estimation 
+                    // than our prior estimation
                     if (!open.Contains(child) || GScoreEstimate < child.g)
                     {
                         child.g = GScoreEstimate;
@@ -208,7 +234,8 @@ namespace Maize
                 }
                 closed.Add(current);
             }
-            Console.WriteLine("Search failed!");
+            //Search failed, no more nodes to find on open list
+            return null;
         }
     }
 }

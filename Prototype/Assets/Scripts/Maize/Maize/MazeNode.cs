@@ -33,6 +33,7 @@ namespace Maize
        // h = (estimated) distance to goal. Current heuristic is manhattan distance
        public double h { get; set; }
 
+       // used for retrieving the path when we're done with the search
        public MazeNode a_star_parent { get; set; }
 
         public MazeNode(int x, int y, int z)
@@ -100,6 +101,7 @@ namespace Maize
                     + "Other: " + other.x_loc + ", " + other.y_loc + ", " + other.z_loc + "\n");
             }
 
+            //merge the union-find data structures
             merge(other);
         }
 
