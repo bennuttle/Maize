@@ -46,8 +46,6 @@ namespace MaizeBackendTests
                     adjacencyLists.Add(current.getAdjacentEdges());
                 }
 
-                testGraph = null;
-
                 edgeCount = edgeCount / 2;
                 minimumEdges = (int)(Math.Pow(size, 3) - 1);
                 Assert.AreEqual(edgeCount, minimumEdges);
@@ -57,6 +55,10 @@ namespace MaizeBackendTests
 
         #region Astar
 
+        
+        //Test for the existence (non-null) of a path between each possible node-pair
+        //WARNING: Test is **SLOW** for n < 10. This test generates n^6 pairwise paths
+        //Running with n < 10 ran on my computer for nearly 20 minutes before passing :)
         [TestMethod]
         public void APathExists()
         {

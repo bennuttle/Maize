@@ -10,17 +10,12 @@ namespace Maize
    public class MazeGraph
     {
 		public MazeNode[, ,] graph { get; set; }
-        ArrayList forest;
         ArrayList edges;
 
         public MazeGraph(int size)
         {
             //Allocate space for graph
             this.graph = new MazeNode[size, size, size];
-
-            //Set of nodes for Kruskal's algorithm
-            forest = new ArrayList();
-            //forest = new MazeNode[(int)Math.Pow(size, 3)];
 
             //Set of edges for Kruskal's algorithm
             edges = new ArrayList();
@@ -34,19 +29,11 @@ namespace Maize
                     {
                         //Create the nodes
                         graph[x, y, z] = new MazeNode(x, y, z);
-
-                        //Store them in temporary 'forest' for Kruskal's algorithm
-                        //Each node is a singleton tree at this point
-                        forest.Add(graph[x, y, z]);
                     }
                 }
             }
             generateEdges(size);
             generateMaze(size);
-            //Console.WriteLine("here are some distances!");
-            //BreadthFirstSearch(graph[0, 0, 0]);
-            //AStarSearch(graph[0, 0, 0], graph[size - 1, size - 1, size - 1]);
-            //Console.ReadLine();
         }
 
         //Connect nodes to form a MST over the graph
@@ -61,8 +48,6 @@ namespace Maize
             MazeEdge currentEdge;
             int connections = 0;
             while (connections < Math.Pow(size, 3) - 1)
-            //while (forest.Count > 1)
-            //while (!allEdgesConnected())
             {
                 //Select an edge
                 edgeIndex = rand.Next(edges.Count);
@@ -72,26 +57,10 @@ namespace Maize
                 {
                     //join the two nodes
                     currentEdge.joinedNodes[0].connect(currentEdge.joinedNodes[1]);
-
-                    //Remove one of the two now-connected nodes from our forest
-                    if (forest.Contains(currentEdge.joinedNodes[0]))
-                    {
-                        forest.Remove(currentEdge.joinedNodes[0]);
-                    }
-                    else
-                    {
-                        forest.Remove(currentEdge.joinedNodes[1]);
-                    }
-                    //currentEdge.joinedNodes[0].printLocation();
                     connections++;
                     edges.Remove(currentEdge);
                 }
-
-                //Remove the edge we selected from consideration
-                //edges.Remove(currentEdge);
             }
-            //Console.WriteLine(connections);
-            //Console.WriteLine(forest.Count);
         }
 
         private bool allEdgesConnected()
@@ -213,11 +182,11 @@ namespace Maize
                         continue;
                     }
 
-                    //g is computed as the cost it took us to get here, plus the distance between the
+                    // g is computed as the cost it took us to get here, plus the distance between the
                     // current node and the child we're considering.
                     GScoreEstimate = (int)(current.g) + current.manhattanDistance(child);
 
-                    //If we haven't considered this node already, or our current estimate is more optimistic
+                    // If we haven't considered this node already, or our current estimate is more optimistic
                     // than our prior estimation
                     if (!open.Contains(child) || GScoreEstimate < child.g)
                     {
