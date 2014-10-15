@@ -17,6 +17,9 @@ public class StepMotion : MonoBehaviour {
 	private Vector2 startPos;
 
 
+	private int turnCounter = 0;
+	private int swipeCounter = 0;
+
 	// Use this for initialization
 	void Start () {
 		canMove = true;
@@ -43,6 +46,11 @@ public class StepMotion : MonoBehaviour {
 			//Moving forward
 			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
 				moveForward = true;
+			}
+
+			//Restart the level
+			if (Input.GetKeyDown (KeyCode.R)) {
+				Application.LoadLevel (Application.loadedLevel);
 			}
 		}	
 	}
@@ -136,9 +144,9 @@ public class StepMotion : MonoBehaviour {
 				} else if (swipeHorDist > swipeVerDist) {
 					if (swipeHorDist > minSwipeX) {
 						if (Mathf.Sign (touch.position.x - startPos.x) > 0) {
-							turnRight = true;
-						} else {
 							turnLeft = true;
+						} else {
+							turnRight = true;
 						}
 					} 
 				} else {
