@@ -62,13 +62,13 @@ public class StepMotion : MonoBehaviour {
 
 	private void forwardChecker () {
 		if (moveForward) {
-			if (tempMove > 5) {
-				transform.Translate (Vector3.forward * (tempMove - 5));
+			if (tempMove > 10) {
+				transform.Translate (Vector3.forward * (tempMove - 10));
 				moveForward = false;
 				tempMove = 0f;
 				canMove = true;
 			} else {
-				moveVal = Mathf.Lerp (0f, 5f, Time.deltaTime);
+				moveVal = Mathf.Lerp (0f, 10f, Time.deltaTime);
 				transform.Translate (Vector3.forward * moveVal);
 				tempMove += moveVal;
 				canMove = false;
