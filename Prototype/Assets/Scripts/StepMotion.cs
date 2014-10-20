@@ -11,6 +11,7 @@ public class StepMotion : MonoBehaviour {
 	private float tempRot = 0f;
 	private float tempOr = 0f;
 	private float tempMove = 0f;
+	private bool isDone = false;
 
 	public float minSwipeX;
 	public float minSwipeY;
@@ -161,5 +162,14 @@ public class StepMotion : MonoBehaviour {
 				break;
 			}
 		}
+	}
+	void OnTriggerEnter(Collider coll) {
+				//canMove = false;
+		moveForward = false;
+		Debug.Log ("test");
+		isDone = true;
+		}
+	public bool getIsDone() {
+		return isDone;
 	}
 }
