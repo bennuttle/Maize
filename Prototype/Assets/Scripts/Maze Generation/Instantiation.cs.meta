@@ -9,6 +9,7 @@ MonoImporter:
   - ceiling: {fileID: 400000, guid: f78d619a59f714db8bd0d820e5cfd473, type: 2}
   - right: {fileID: 400000, guid: bae0656d5f2d24052b19da0228c43e52, type: 2}
   - left: {fileID: 400000, guid: 7fd56f898b87a479698fabd45837d607, type: 2}
+  - EndBox: {fileID: 400000, guid: a44639c93e5a04d5e9738a92e331adb7, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
