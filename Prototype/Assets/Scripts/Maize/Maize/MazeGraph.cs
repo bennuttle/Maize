@@ -10,6 +10,8 @@ namespace Maize
    public class MazeGraph
     {
 		public MazeNode[, ,] graph { get; set; }
+        public MazeNode start { get; set; }
+        public MazeNode goal { get; set; }
         ArrayList edges;
 
         public MazeGraph(int size)
@@ -34,6 +36,15 @@ namespace Maize
             }
             generateEdges(size);
             generateMaze(size);
+
+            //Arbitrarily define the start of our maze at 0, 0, 0
+            start = graph[0, 0, 0];
+
+            //Search the graph, maintaining an order of nodes we reached
+            List<MazeNode> orderedVertices = BreadthFirstSearch(start);
+            //Our goal node is the last one reached by BFS
+            goal = orderedVertices[orderedVertices.Count - 1];
+
         }
 
         //Connect nodes to form a MST over the graph
@@ -112,13 +123,13 @@ namespace Maize
             }
         }
 
-        public HashSet<MazeNode> BreadthFirstSearch(MazeNode root)
+        public List<MazeNode> BreadthFirstSearch(MazeNode root)
         {
+            List<MazeNode> orderedVertices = new List<MazeNode>();
             Queue nodes = new Queue();
-            HashSet<MazeNode> vertices = new HashSet<MazeNode>();
             ArrayList children;
 
-            vertices.Add(root);
+            orderedVertices.Add(root);
             nodes.Enqueue(root);
 
             MazeNode current;
@@ -130,15 +141,14 @@ namespace Maize
 
                 foreach (MazeNode child in children)
                 {
-                    if(!vertices.Contains(child))
+                    if (!orderedVertices.Contains(child))
                     {
-                        vertices.Add(child);
+                        orderedVertices.Add(child);
                         nodes.Enqueue(child);
                     }
                 }
             }
-
-            return vertices;
+            return orderedVertices;
         }
 
         public Stack<MazeNode> AStarSearch(MazeNode start, MazeNode goal)
@@ -205,6 +215,11 @@ namespace Maize
             }
             //Search failed, no more nodes to find on open list
             return null;
+        }
+
+        public int getOptimalSolutionLength()
+        {
+
         }
     }
 }
