@@ -9,6 +9,7 @@ Temp
 *.unityproj
 *.sln
 *.meta
+*.csproj.meta
 
 #Visual Studio files
 *.[Oo]bj
