@@ -10,12 +10,13 @@ public class Instantiation : MonoBehaviour {
 	public Transform right;
 	public Transform left;
 	public Transform EndBox;
-
+	private MazeGraph testthis;
+	private MazeNode[, ,] temp; 
 	public int size = 2;
 
 	void Start () {
-		MazeGraph testthis = new MazeGraph (size);	
-		MazeNode [, ,] temp = testthis.graph;
+		this.testthis = new MazeGraph (size);	
+		this.temp = testthis.graph;
 		for (int x = 0; x < size; x++)
 		{
 			for (int y = 0; y < size; y++)
@@ -56,5 +57,8 @@ public class Instantiation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+	public MazeNode[, ,] getGraph() {
+		return temp;
 	}
 }
