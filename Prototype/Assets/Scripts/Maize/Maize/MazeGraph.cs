@@ -51,9 +51,6 @@ namespace Maize
         //A MST is our maze, with guaranteed access to every node and no loops.
         private void generateMaze(int size)
         {
-
-
-            //TODO debug - few redundant edges.
             Random rand = new Random();
             int edgeIndex;
             MazeEdge currentEdge;
@@ -72,27 +69,6 @@ namespace Maize
                     edges.Remove(currentEdge);
                 }
             }
-        }
-
-        private bool allEdgesConnected()
-        {
-            for (int x = 0; x < graph.GetLength(0); x++)
-            {
-                for (int y = 0; y < graph.GetLength(1); y++)
-                {
-                    for (int z = 0; z < graph.GetLength(2); z++)
-                    {
-                        foreach (MazeNode current in graph)
-                        {
-                            if(!current.isConnected(graph[x, y, z]))
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
         }
 
         private void generateEdges(int size)
@@ -219,7 +195,12 @@ namespace Maize
 
         public int getOptimalSolutionLength()
         {
+            return AStarSearch(start, goal).Count;
+        }
 
+        public int getOptimalSolutionLength(MazeNode current)
+        {
+            return AStarSearch(current, goal).Count;
         }
     }
 }
