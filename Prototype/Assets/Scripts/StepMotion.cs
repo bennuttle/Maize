@@ -87,6 +87,7 @@ public class StepMotion : MonoBehaviour {
 				moveForward = false;
 				tempMove = 0f;
 				canMove = true;
+				forwardCheck ();
 			} else {
 				moveVal = Mathf.Lerp (0f, 10f, Time.deltaTime);
 				transform.Translate (Vector3.forward * moveVal);
@@ -103,6 +104,7 @@ public class StepMotion : MonoBehaviour {
 				turnLeft = false;
 				tempRot = 0f;
 				canMove = true;
+				forwardCheck ();
 			} else {
 				rotateVal = Mathf.Lerp (0f, 90f, Time.deltaTime);
 				transform.Rotate (new Vector3 (0, rotateVal, 0));
@@ -115,6 +117,7 @@ public class StepMotion : MonoBehaviour {
 				turnRight = false;
 				tempRot = 0f;
 				canMove = true;
+				forwardCheck ();
 			} else {
 				rotateVal = Mathf.Lerp (0f, -90f, Time.deltaTime);
 				transform.Rotate (new Vector3 (0, rotateVal, 0));
@@ -127,6 +130,7 @@ public class StepMotion : MonoBehaviour {
 				turnUp = false;
 				tempOr = 0f;
 				canMove = true;
+				forwardCheck ();
 			} else {
 				rotateVal = Mathf.Lerp (0f, -90f, Time.deltaTime);
 				transform.Rotate (new Vector3(rotateVal, 0, 0));
@@ -139,6 +143,7 @@ public class StepMotion : MonoBehaviour {
 				turnDown = false;
 				tempOr = 0f;
 				canMove = true;
+				forwardCheck ();
 			} else {
 				rotateVal = Mathf.Lerp (0f, 90f, Time.deltaTime);
 				transform.Rotate (new Vector3(rotateVal, 0, 0));
@@ -194,4 +199,15 @@ public class StepMotion : MonoBehaviour {
 	void OnCollisionEnter(Collision collide) {
 		Debug.Log ("testing123");
 		}
+
+	private void forwardCheck () {
+		Vector3 fwd = transform.TransformDirection (Vector3.forward);
+		RaycastHit test;
+		if (Physics.Raycast (transform.position, fwd, 10f, test)) {
+			Debug.Log ("Wall here!");
+			test.transform.gameObject.renderer.material = testMaterial;
+		} else {
+			Debug.Log ("No Wall!");
+		}
+	}
 }
