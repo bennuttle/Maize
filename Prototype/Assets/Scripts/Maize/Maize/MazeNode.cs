@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Maize
 {
-   public class MazeNode : IComparable<MazeNode>
+    public class MazeNode : IComparable<MazeNode>
     {
-       //XYZ Coordinates
+        //XYZ Coordinates
         public int x_loc { get; set; }
         public int y_loc { get; set; }
         public int z_loc { get; set; }
 
-       //Pointers to neighbor nodes, for pathing
+        //Pointers to neighbor nodes, for pathing
         public MazeNode x_plus { get; set; }
         public MazeNode x_minus { get; set; }
         public MazeNode y_plus { get; set; }
@@ -22,19 +22,19 @@ namespace Maize
         public MazeNode z_plus { get; set; }
         public MazeNode z_minus { get; set; }
 
-       //For Union-find data structure
+        //For Union-find data structure
         public MazeNode union_find_parent { get; set; }
 
-       //For A* Search
-       // f = g + h
-       public double f { get; set; }
-       // g = (actual) cost it took us to get here
-       public double g { get; set; }
-       // h = (estimated) distance to goal. Current heuristic is manhattan distance
-       public double h { get; set; }
+        //For A* Search
+        // f = g + h
+        public double f { get; set; }
+        // g = (actual) cost it took us to get here
+        public double g { get; set; }
+        // h = (estimated) distance to goal. Current heuristic is manhattan distance
+        public double h { get; set; }
 
-       // used for retrieving the path when we're done with the search
-       public MazeNode a_star_parent { get; set; }
+        // used for retrieving the path when we're done with the search
+        public MazeNode a_star_parent { get; set; }
 
         public MazeNode(int x, int y, int z)
         {
@@ -49,10 +49,10 @@ namespace Maize
             h = Int32.MaxValue;
         }
 
-       /* Comparator method for priority queue sorting in A* implementation
-        * A node with a lower f-score has a lower estimated overall cost and
-        * should therefore be considered first.
-        */
+        /* Comparator method for priority queue sorting in A* implementation
+         * A node with a lower f-score has a lower estimated overall cost and
+         * should therefore be considered first.
+         */
         int IComparable<MazeNode>.CompareTo(MazeNode other)
         {
             if (other.f > this.f)

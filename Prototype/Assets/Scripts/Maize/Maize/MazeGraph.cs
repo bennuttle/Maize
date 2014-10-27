@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Maize
 {
-   public class MazeGraph
+    public class MazeGraph
     {
-		private MazeNode[, ,] graph { get; set; }
+        private MazeNode[, ,] graph { get; set; }
         public MazeNode start { get; set; }
         public MazeNode goal { get; set; }
         private ArrayList edges;
@@ -58,7 +58,13 @@ namespace Maize
                     }
                 }
             }
+
+            // Create our set of edges to be considered.
+            // Taking all of these edges would make a complete graph
             generateEdges(dimX, dimY, dimZ);
+
+            // Run Kruskal's MST algorithm
+            // Graph connections are stored at the node level
             generateMaze(dimX, dimY, dimZ);
 
             //Arbitrarily define the start of our maze at 0, 0, 0
@@ -76,7 +82,7 @@ namespace Maize
             get { return graph[x, y, z]; }
         }
 
-        public MazeNode[ , , ] getAllNodes()
+        public MazeNode[, ,] getAllNodes()
         {
             return graph;
         }
@@ -108,34 +114,34 @@ namespace Maize
         private void generateEdges(int dimX, int dimY, int dimZ)
         {
 
-                for (int x = 0; x < dimX; x++)
+            for (int x = 0; x < dimX; x++)
+            {
+
+                for (int y = 0; y < dimY; y++)
                 {
-
-                        for (int y = 0; y < dimY; y++)
+                    for (int z = 0; z < dimZ; z++)
+                    {
+                        //Add edges to a set for consideration. Nodes are not yet connected.
+                        if (x > 0 && dimX > 1)
                         {
-                                for (int z = 0; z < dimZ; z++)
-                                {
-                                    //Add edges to a set for consideration. Nodes are not yet connected.
-                                    if (x > 0 && dimX > 1)
-                                    {
-                                        edges.Add(new MazeEdge(graph[x, y, z], graph[x - 1, y, z]));
-                                    }
-
-                                    if (y > 0 && dimY > 1)
-                                    {
-                                        edges.Add(new MazeEdge(graph[x, y, z], graph[x, y - 1, z]));
-                                    }
-
-                                    if (z > 0 && dimZ > 1)
-                                    {
-                                        edges.Add(new MazeEdge(graph[x, y, z], graph[x, y, z - 1]));
-                                    }
-                                }
-                            
+                            edges.Add(new MazeEdge(graph[x, y, z], graph[x - 1, y, z]));
                         }
-                    
+
+                        if (y > 0 && dimY > 1)
+                        {
+                            edges.Add(new MazeEdge(graph[x, y, z], graph[x, y - 1, z]));
+                        }
+
+                        if (z > 0 && dimZ > 1)
+                        {
+                            edges.Add(new MazeEdge(graph[x, y, z], graph[x, y, z - 1]));
+                        }
+                    }
+
                 }
-            
+
+            }
+
         }
 
         public List<MazeNode> BreadthFirstSearch(MazeNode root)
@@ -167,9 +173,9 @@ namespace Maize
         }
 
 
-       // Returns a stack of nodes representing the path from start to goal.
-       // Popping elements off the stack yields the correct sequence of moves
-       // in order.
+        // Returns a stack of nodes representing the path from start to goal.
+        // Popping elements off the stack yields the correct sequence of moves
+        // in order.
         public Stack<MazeNode> AStarSearch(MazeNode start, MazeNode goal)
         {
             HashSet<MazeNode> closed = new HashSet<MazeNode>();
@@ -182,7 +188,7 @@ namespace Maize
             start.f = start.g + start.h;
             start.a_star_parent = start;
             open.Add(start);
-            
+
             //While there are adjacent, unexplored nodes to search
             while (open.Count > 0)
             {
@@ -224,7 +230,7 @@ namespace Maize
                         child.g = GScoreEstimate;
                         child.f = child.g + child.manhattanDistance(goal);
 
-                        if(!open.Contains(child))
+                        if (!open.Contains(child))
                         {
                             open.Add(child);
                         }
@@ -238,8 +244,8 @@ namespace Maize
             return null;
         }
 
-       //The length of the optimal solution is the number of nodes returned from A*
-       //Use this method for considering the shortest solution for this MazeGraph
+        //The length of the optimal solution is the number of nodes returned from A*
+        //Use this method for considering the shortest solution for this MazeGraph
         public int getOptimalSolutionLength()
         {
             return AStarSearch(start, goal).Count;
