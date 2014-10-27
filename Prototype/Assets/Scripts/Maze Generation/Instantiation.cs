@@ -14,8 +14,8 @@ public class Instantiation : MonoBehaviour {
 	public int size = 2;
 
 	void Start () {
-		MazeGraph testthis = new MazeGraph (size);	
-		MazeNode [, ,] temp = testthis.graph;
+		MazeGraph testthis = new MazeGraph (size,size,size);	
+		MazeNode [, ,] temp = testthis.getAllNodes();
 		for (int x = 0; x < size; x++)
 		{
 			for (int y = 0; y < size; y++)
