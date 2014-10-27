@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Maize;
 
 public class StepMotion : MonoBehaviour {
 
@@ -18,10 +17,6 @@ public class StepMotion : MonoBehaviour {
 	public float minSwipeY;
 	private Vector2 startPos;
 
-	public int xLoc = 0;
-	public int yLoc = 0;
-	public int zLoc = 0;
-	private MazeNode[, ,] test;
 
 	private int turnCounter = 0;
 	private int swipeCounter = 0;
@@ -29,9 +24,6 @@ public class StepMotion : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canMove = true;
-		GameObject mazeRef = GameObject.Find("MazeGen");
-		Instantiation mazeRefScript = (Instantiation) mazeRef.GetComponent(typeof(Instantiation));
-		test = mazeRefScript.getGraph ();
 	}
 	
 	// Update is called once per frame
@@ -61,18 +53,7 @@ public class StepMotion : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.R)) {
 				Application.LoadLevel (Application.loadedLevel);
 			}
-
-
-		}
-		GameObject timeRef = GameObject.Find("Character_2_withTime");
-		TimeGUI timeRefScript = (TimeGUI) timeRef.GetComponent(typeof(TimeGUI));
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			timeRefScript.pause();
-		}
-		if(timeRefScript.getPause()) {
-			moveForward = false;
-			canMove = false;
-		} else { canMove = true;}
+		}	
 	}
 
 	void LateUpdate () {
@@ -196,6 +177,7 @@ public class StepMotion : MonoBehaviour {
 	public bool getIsDone() {
 		return isDone;
 	}
+<<<<<<< HEAD
 	void OnCollisionEnter(Collision collide) {
 		Debug.Log ("testing123");
 		}
@@ -210,4 +192,6 @@ public class StepMotion : MonoBehaviour {
 			Debug.Log ("No Wall!");
 		}
 	}
+=======
+>>>>>>> FETCH_HEAD
 }

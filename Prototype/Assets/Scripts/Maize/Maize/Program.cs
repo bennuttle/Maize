@@ -10,9 +10,9 @@ namespace Maize
     {
         static void Main(string[] args)
         {
-            MazeGraph  testGraph = new MazeGraph(3);
-            testGraph.BreadthFirstSearch(testGraph.graph[0, 0, 0]);
-            
+            MazeGraph testGraph = new MazeGraph(3, 3, 3);
+            testGraph.BreadthFirstSearch(testGraph[0, 0, 0]);
+
             Console.ReadLine();
         }
     }
