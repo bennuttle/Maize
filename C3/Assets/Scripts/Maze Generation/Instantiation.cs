@@ -11,16 +11,20 @@ public class Instantiation : MonoBehaviour {
 	public Transform left;
 	public Transform EndBox;
 
-	public int size = 2;
+	public int xsize = 2;
+	public int ysize = 2;
+	public int zsize = 2;
+	public GameObject characterRef;
 
 	void Start () {
-		MazeGraph testthis = new MazeGraph (size,size,size);	
+		MazeGraph testthis = new MazeGraph (xsize,ysize,zsize);	
 		MazeNode [, ,] temp = testthis.getAllNodes();
-		for (int x = 0; x < size; x++)
+		MazeNode mazeGoal = testthis.goal;
+		for (int x = 0; x < xsize; x++)
 		{
-			for (int y = 0; y < size; y++)
+			for (int y = 0; y < ysize; y++)
 			{
-				for (int z = 0; z < size; z++)
+				for (int z = 0; z < zsize; z++)
 				{
 					//					MazeNode[,,] temp = testthis.graph[x,y,z];
 					if(temp[x,y,z].y_minus == null) {
@@ -50,7 +54,11 @@ public class Instantiation : MonoBehaviour {
 				}
 			}
 		}
-		Instantiate (EndBox, new Vector3 ((size - 1) * 10, (size - 1) * 10 + 5, (size - 1) * 10), EndBox.transform.rotation);
+		Instantiate (EndBox, new Vector3 ((mazeGoal.x_loc) * 10, (mazeGoal.y_loc) * 10 + 5, (mazeGoal.z_loc) * 10), EndBox.transform.rotation);
+//		Instantiate (EndBox, new Vector3 ((size - 1) * 10, (size - 1) * 10 + 5, (size - 1) * 10), EndBox.transform.rotation);
+		Instantiate (characterRef);
+//		GameObject.Find("Character").SetActiveRecursively(true);
+
 	}
 
 	// Update is called once per frame

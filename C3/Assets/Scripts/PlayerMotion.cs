@@ -16,15 +16,19 @@ public class PlayerMotion : MonoBehaviour {
 	//Int to show whether a character is moving forward or which direction he is rotating.
 	private int motionVal;
 
+	private bool isDone;
+
 	private float tempMove;
 	private float moveVal;
 	// Use this for initialization
 	void Start () {
 		obstacleInFront = forwardCheck ();
 		motionVal = (int) Motion.NONE;
-
+//		Debug.Log (obstacleInFront);
 		tempMove = 0f;
 		moveVal = 0f;
+		isDone = false;
+
 	}
 	
 	// Update is called once per frame
@@ -66,13 +70,14 @@ public class PlayerMotion : MonoBehaviour {
 //			Debug.Log ("Wall here!");
 //			test.transform.gameObject.renderer.material = testMaterial;
 //		}
-		Debug.Log (Physics.Raycast (transform.position, fwd, intervalDistance));
+//		Debug.Log (Physics.Raycast (transform.position, fwd, intervalDistance));
 		return Physics.Raycast (transform.position, fwd, intervalDistance);
 	}
 
 	//DELETE EVENTUALLY
 	//Used to test game on computers
 	private void compMotion () {
+//		Debug.Log (obstacleInFront);
 		if (!motionLocked && !obstacleInFront) {
 			//Moving forward
 			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
@@ -97,6 +102,10 @@ public class PlayerMotion : MonoBehaviour {
 				motionLocked = true;
 			}
 		}
+	}
+
+	public bool getIsDone() {
+		return isDone;
 	}
 
 }

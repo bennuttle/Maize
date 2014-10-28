@@ -8,12 +8,11 @@ public class TimeGUI : MonoBehaviour
 	int minutes = 0;
 	string displayTime;
 
-
-
 	void Update()
 	{
-		GameObject timeRef = GameObject.Find("Character_2_withTime");
-		StepMotion timeRefScript = (StepMotion) timeRef.GetComponent(typeof(StepMotion));
+		GameObject timeRef = this.gameObject;
+		//		GameObject timeRef = GameObject.Find("Character_2_withTime");
+		PlayerMotion timeRefScript = (PlayerMotion) timeRef.GetComponent(typeof(PlayerMotion));
 		if(!timeRefScript.getIsDone()) {
 			milliseconds += Time.deltaTime;
 			if (milliseconds > 1)
