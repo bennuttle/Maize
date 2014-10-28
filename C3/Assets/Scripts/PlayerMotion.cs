@@ -29,6 +29,7 @@ public class PlayerMotion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		obstacleInFront = forwardCheck ();
 		compMotion ();
 	}
 
@@ -65,13 +66,14 @@ public class PlayerMotion : MonoBehaviour {
 //			Debug.Log ("Wall here!");
 //			test.transform.gameObject.renderer.material = testMaterial;
 //		}
+		Debug.Log (Physics.Raycast (transform.position, fwd, intervalDistance));
 		return Physics.Raycast (transform.position, fwd, intervalDistance);
 	}
 
 	//DELETE EVENTUALLY
 	//Used to test game on computers
 	private void compMotion () {
-		if (!motionLocked) {
+		if (!motionLocked && !obstacleInFront) {
 			//Moving forward
 			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
 				motionVal = (int) Motion.FORWARD;
