@@ -23,6 +23,7 @@ public class PlayerMotion : MonoBehaviour {
 	private float rotateVal;
 
 	private bool isDone;
+	private bool isPaused;
 
 	// Use this for initialization
 	void Start () {
@@ -35,12 +36,14 @@ public class PlayerMotion : MonoBehaviour {
 		moveVal = 0f;
 		rotateVal = 0f;
 		isDone = false;
+		isPaused = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		checkPause ();
 		obstacleInFront = forwardCheck ();
-		Debug.Log (obstacleInFront);
+//		Debug.Log (obstacleInFront);
 		compMotion ();
 		//Debug.Log (Time.time + motionLocked);
 	}
@@ -140,13 +143,21 @@ public class PlayerMotion : MonoBehaviour {
 //			Debug.Log ("Wall here!");
 //			test.transform.gameObject.renderer.material = testMaterial;
 //		}
-		return Physics.Raycast (transform.position, fwd, intervalDistance);
+//		return Physics.Raycast (transform.position, fwd, intervalDistance);
+		Physics.Raycast (transform.position, fwd, out test);
+		if (test.transform.gameObject.collider.isTrigger) {
+//			Debug.Log("test1"+test.transform.gameObject.collider.isTrigger);
+			return false;
+		} else {
+//			Debug.Log("test2"+test.transform.gameObject.collider.isTrigger);
+			return Physics.Raycast (transform.position, fwd, intervalDistance);
+		}
 	}
 
 	//DELETE EVENTUALLY
 	//Used to test game on computers
 	private void compMotion () {
-		if (!motionLocked) {
+		if (!motionLocked && !isPaused && !isDone) {
 			//Moving forward
 			if (Input.GetKeyDown (KeyCode.UpArrow)&& !obstacleInFront || Input.GetKeyDown (KeyCode.W)&& !obstacleInFront) {
 				motionVal = (int) Motion.FORWARD;
@@ -173,5 +184,31 @@ public class PlayerMotion : MonoBehaviour {
 	}
 	public bool getIsDone() {
 		return isDone;
+	}
+
+	public void finish() {
+		this.isDone = true;
+	}
+
+	public bool getIsPaused() {
+		return isPaused;
+	}
+
+	private void checkPause() {
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (isPaused) {
+				isPaused = false;
+			} else {
+				isPaused = true;
+			}
+		}
+	}
+	void OnTriggerEnter(Collider col) {
+//		Debug.Log ("woot");
+//		Debug.Log (col.name);
+		finish ();
+//				PlayerMotion yolo = (PlayerMotion)col.GetComponent (typeof(PlayerMotion));
+//				yolo.finish();
+//		Debug.Log ("woot");
 	}
 }

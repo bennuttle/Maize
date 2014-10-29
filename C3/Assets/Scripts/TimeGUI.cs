@@ -13,7 +13,7 @@ public class TimeGUI : MonoBehaviour
 		GameObject timeRef = this.gameObject;
 		//		GameObject timeRef = GameObject.Find("Character_2_withTime");
 		PlayerMotion timeRefScript = (PlayerMotion) timeRef.GetComponent(typeof(PlayerMotion));
-		if(!timeRefScript.getIsDone()) {
+		if(!timeRefScript.getIsDone() && !timeRefScript.getIsPaused()) {
 			milliseconds += Time.deltaTime;
 			if (milliseconds > 1)
 			{
