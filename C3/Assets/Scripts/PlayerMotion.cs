@@ -29,7 +29,7 @@ public class PlayerMotion : MonoBehaviour {
 	void Start () {
 		obstacleInFront = forwardCheck ();
 		motionVal = (int) Motion.NONE;
-
+		changeFloor ();
 		tempMove = 0f;
 		tempRot = 0f;
 		tempOr = 0f;
@@ -43,6 +43,7 @@ public class PlayerMotion : MonoBehaviour {
 	void Update () {
 		checkPause ();
 		obstacleInFront = forwardCheck ();
+
 //		Debug.Log (obstacleInFront);
 		compMotion ();
 		//Debug.Log (Time.time + motionLocked);
@@ -54,6 +55,7 @@ public class PlayerMotion : MonoBehaviour {
 	}
 	
 	private void forwardMotion () {
+//		changeFloor ();
 		if (motionVal == (int) Motion.FORWARD) {
 			if (tempMove > intervalDistance) {
 				//transform.Translate (Vector3.forward * (tempMove - intervalDistance));
@@ -76,6 +78,7 @@ public class PlayerMotion : MonoBehaviour {
 				motionLocked = true;
 			}
 		}
+
 	}
 
 
@@ -154,6 +157,14 @@ public class PlayerMotion : MonoBehaviour {
 		}
 	}
 
+	private void changeFloor () {
+		Vector3 dwn = transform.TransformDirection (Vector3.down);
+		RaycastHit test;
+		Physics.Raycast (transform.position, dwn, out test);
+		test.transform.gameObject.renderer.material = testMaterial;
+		Debug.Log ("test1" + test.transform.gameObject);
+	}
+
 	//DELETE EVENTUALLY
 	//Used to test game on computers
 	private void compMotion () {
@@ -162,6 +173,7 @@ public class PlayerMotion : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.UpArrow)&& !obstacleInFront || Input.GetKeyDown (KeyCode.W)&& !obstacleInFront) {
 				motionVal = (int) Motion.FORWARD;
 				motionLocked = true;
+				changeFloor ();
 			}
 			//Rotating
 			if (Input.GetKeyDown (KeyCode.RightArrow) || Input.GetKeyDown (KeyCode.D)) {
@@ -197,18 +209,17 @@ public class PlayerMotion : MonoBehaviour {
 	private void checkPause() {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			if (isPaused) {
-				isPaused = false;
+				Application.Quit(); 
 			} else {
 				isPaused = true;
 			}
 		}
 	}
 	void OnTriggerEnter(Collider col) {
-//		Debug.Log ("woot");
-//		Debug.Log (col.name);
 		finish ();
-//				PlayerMotion yolo = (PlayerMotion)col.GetComponent (typeof(PlayerMotion));
-//				yolo.finish();
-//		Debug.Log ("woot");
+	}
+
+	public void unPause() {
+		isPaused = false;
 	}
 }
