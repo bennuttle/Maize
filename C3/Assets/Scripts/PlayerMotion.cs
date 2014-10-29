@@ -16,38 +16,55 @@ public class PlayerMotion : MonoBehaviour {
 	//Int to show whether a character is moving forward or which direction he is rotating.
 	private int motionVal;
 
+	private float tempMove;
+	private float tempRot;
+	private float tempOr;
+	private float moveVal;
+	private float rotateVal;
+
 	private bool isDone;
 
-	private float tempMove;
-	private float moveVal;
 	// Use this for initialization
 	void Start () {
 		obstacleInFront = forwardCheck ();
 		motionVal = (int) Motion.NONE;
-//		Debug.Log (obstacleInFront);
-		tempMove = 0f;
-		moveVal = 0f;
-		isDone = false;
 
+		tempMove = 0f;
+		tempRot = 0f;
+		tempOr = 0f;
+		moveVal = 0f;
+		rotateVal = 0f;
+		isDone = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		obstacleInFront = forwardCheck ();
+		Debug.Log (obstacleInFront);
 		compMotion ();
+		//Debug.Log (Time.time + motionLocked);
 	}
 
 	void LateUpdate () {
 		forwardMotion ();
+		rotateMotion ();
 	}
 	
 	private void forwardMotion () {
 		if (motionVal == (int) Motion.FORWARD) {
 			if (tempMove > intervalDistance) {
-				transform.Translate (Vector3.forward * (tempMove - intervalDistance));
+				//transform.Translate (Vector3.forward * (tempMove - intervalDistance));
 				motionVal = (int) Motion.NONE;
 				tempMove = 0f;
 				motionLocked = false;
+
+				Vector3 newPos = new Vector3((int)transform.position.x, (int) transform.position.y, (int) transform.position.z);
+
+				newPos.x = Mathf.Round (newPos.x / 5f) * 5;
+				newPos.y = Mathf.Round (newPos.y / 5f) * 5;
+				newPos.z = Mathf.Round (newPos.z / 5f) * 5;
+
+				transform.position = newPos;
 				forwardCheck ();
 			} else {
 				moveVal = 3f * Mathf.Lerp (0f, intervalDistance, Time.deltaTime);
@@ -58,8 +75,61 @@ public class PlayerMotion : MonoBehaviour {
 		}
 	}
 
-	private void rotateMotion () {
 
+	private void rotateMotion () {
+		if (motionVal == (int) Motion.ROTATE_LEFT) {
+			if (tempRot > 90f) {
+				transform.Rotate (new Vector3 (0, -1 * (tempRot - 90f), 0));
+				motionVal = (int) Motion.NONE;
+				tempRot = 0f;
+
+				motionLocked = false;
+			} else {
+				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
+				transform.Rotate (new Vector3 (0, rotateVal, 0));
+				tempRot += rotateVal;
+				motionLocked = true;
+			}
+		} else if (motionVal == (int) Motion.ROTATE_RIGHT) {
+			if (tempRot < -90) {
+				transform.Rotate (new Vector3 (0, -1 * (tempRot + 90f), 0));
+				motionVal = (int) Motion.NONE;
+				tempRot = 0f;
+
+				motionLocked = false;
+			} else {
+				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
+				transform.Rotate (new Vector3 (0, rotateVal, 0));
+				tempRot += rotateVal;
+				motionLocked = true;
+			}
+		} else if (motionVal == (int) Motion.ROTATE_UP) {
+			if (tempOr < -90f) {
+				transform.Rotate (-1 * new Vector3((tempOr + 90f), 0, 0));
+				motionVal = (int) Motion.NONE;
+				tempOr = 0f;
+
+				motionLocked = false;
+			} else {
+				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
+				transform.Rotate (new Vector3(rotateVal, 0, 0));
+				tempOr += rotateVal;
+				motionLocked = true;
+			}
+		} else if (motionVal == (int) Motion.ROTATE_DOWN) {
+			if (tempOr > 90f) {
+				transform.Rotate (-1 * new Vector3((tempOr - 90f), 0, 0));
+				motionVal = (int) Motion.NONE;
+				tempOr = 0f;
+
+				motionLocked = false;
+			} else {
+				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
+				transform.Rotate (new Vector3(rotateVal, 0, 0));
+				tempOr += rotateVal;
+				motionLocked = true;
+			}
+		}
 	}
 
 	//Short function to see whether there is a wall infront of the character.
@@ -70,17 +140,15 @@ public class PlayerMotion : MonoBehaviour {
 //			Debug.Log ("Wall here!");
 //			test.transform.gameObject.renderer.material = testMaterial;
 //		}
-//		Debug.Log (Physics.Raycast (transform.position, fwd, intervalDistance));
 		return Physics.Raycast (transform.position, fwd, intervalDistance);
 	}
 
 	//DELETE EVENTUALLY
 	//Used to test game on computers
 	private void compMotion () {
-//		Debug.Log (obstacleInFront);
-		if (!motionLocked && !obstacleInFront) {
+		if (!motionLocked) {
 			//Moving forward
-			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
+			if (Input.GetKeyDown (KeyCode.UpArrow)&& !obstacleInFront || Input.GetKeyDown (KeyCode.W)&& !obstacleInFront) {
 				motionVal = (int) Motion.FORWARD;
 				motionLocked = true;
 			}
@@ -103,9 +171,7 @@ public class PlayerMotion : MonoBehaviour {
 			}
 		}
 	}
-
 	public bool getIsDone() {
 		return isDone;
 	}
-
 }
