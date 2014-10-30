@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 40ba84f0147afa441a37124f5d7c1db0
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - floor: {fileID: 400000, guid: 206c394a09d8e447b8889782bbbd6264, type: 2}
+  - front: {fileID: 400000, guid: 8383ebb29898f4cb88eb688018ab1e10, type: 2}
+  - back: {fileID: 400000, guid: f695b12fba2594c2aa74d08a05dd8db1, type: 2}
+  - ceiling: {fileID: 400000, guid: 21086688ddaa842499556983ef028c9f, type: 2}
+  - right: {fileID: 400000, guid: d0133353aa86346fd8f2a99893166520, type: 2}
+  - left: {fileID: 400000, guid: f40a6c7f9eb634d84bdb98eae4b2c3f7, type: 2}
+  - EndBox: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
