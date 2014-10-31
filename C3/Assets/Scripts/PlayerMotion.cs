@@ -110,7 +110,7 @@ public class PlayerMotion : MonoBehaviour {
 				float swipeVerDist = (new Vector2 (0, touch.position.y) - new Vector2 (0, startPos.y)).magnitude;
 				float swipeHorDist = (new Vector2 (touch.position.x, 0) - new Vector2 (startPos.x, 0)).magnitude;
 				if (swipeVerDist < minSwipeY && swipeHorDist < minSwipeX) {
-					if (motionVal == (int) Motion.NONE) {
+					if (motionVal == (int) Motion.NONE && !obstacleInFront) {
 						motionVal = (int) Motion.FORWARD;
 					}
 				} else if (swipeHorDist > swipeVerDist) {
