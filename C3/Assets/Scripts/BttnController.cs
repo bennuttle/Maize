@@ -24,7 +24,7 @@ public class BttnController : MonoBehaviour {
 
 		if(GUI.Button (new Rect(Screen.width * 0.25f, buttonHeight * 1.5f,expWidth,buttonHeight), exp)) {
 			//load level
-			Application.LoadLevel(0);
+			Application.LoadLevel(1);
 		}
 		if(GUI.Button (new Rect(Screen.width * 0.4f,buttonHeight * 2.5f,markWidth,buttonHeight), marks)) {
 			

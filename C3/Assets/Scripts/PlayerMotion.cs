@@ -6,6 +6,7 @@ public class PlayerMotion : MonoBehaviour {
 	public Material testMaterial;
 
 	enum Motion : int {NONE, FORWARD, ROTATE_LEFT, ROTATE_RIGHT, ROTATE_UP, ROTATE_DOWN};
+	
 
 	//Float to be used to signify how far to move forward and how far to cast rays.
 	private float intervalDistance = 10f;
