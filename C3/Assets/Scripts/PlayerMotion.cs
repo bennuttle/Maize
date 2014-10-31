@@ -26,6 +26,13 @@ public class PlayerMotion : MonoBehaviour {
 	private bool isDone;
 	private bool isPaused;
 
+	private Vector2 startPos;
+	private float minSwipeX = 150f;
+	private float minSwipeY = 150f;
+	//Screen width and height;
+	private float screenWidth;
+	private float screenHeight;
+
 	// Use this for initialization
 	void Start () {
 		obstacleInFront = forwardCheck ();
@@ -38,14 +45,24 @@ public class PlayerMotion : MonoBehaviour {
 		rotateVal = 0f;
 		isDone = false;
 		isPaused = false;
+
+		screenWidth = Screen.width;
+		screenHeight = Screen.height;
+		//Debug.Log (screenWidth + " , " + screenHeight);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//To make sure the screen didn't rotate.
+		screenWidth = Screen.width;
+		screenHeight = Screen.height;
+		
 		checkPause ();
 		obstacleInFront = forwardCheck ();
 
 //		Debug.Log (obstacleInFront);
+//		tapDetection ();
+		SwipeChecker ();
 		compMotion ();
 		//Debug.Log (Time.time + motionLocked);
 	}
@@ -54,7 +71,78 @@ public class PlayerMotion : MonoBehaviour {
 		forwardMotion ();
 		rotateMotion ();
 	}
-	
+
+/**
+	private void tapDetection () {
+		if (Input.touchCount > 0) {
+			Touch t = Input.touches[0];
+			motionLocked = true;
+
+			if (t.position.x < screenHeight / 3f) {
+				motionVal = (int) Motion.ROTATE_UP;
+				return;
+			} else if (t.position.x > screenHeight * (2f/3f)) {
+				motionVal = (int) Motion.ROTATE_DOWN;
+				return;
+			} else if (t.position.y < screenWidth / 3f) {
+				motionVal = (int) Motion.ROTATE_LEFT;
+				return;
+			} else if (t.position.y > screenWidth * (2f/3f)) {
+				motionVal = (int) Motion.ROTATE_RIGHT;
+				return;
+			} else {
+				motionVal = (int) Motion.FORWARD;
+				return;
+			}
+		}
+	}
+*/
+
+	private void SwipeChecker () {
+		if (Input.touchCount > 0) {
+			Touch touch = Input.touches [0];
+			motionLocked = true;
+			switch (touch.phase) {
+			case TouchPhase.Began:
+				startPos = touch.position;
+				break;
+			case TouchPhase.Ended:
+				float swipeVerDist = (new Vector2 (0, touch.position.y) - new Vector2 (0, startPos.y)).magnitude;
+				float swipeHorDist = (new Vector2 (touch.position.x, 0) - new Vector2 (startPos.x, 0)).magnitude;
+				if (swipeVerDist < minSwipeY && swipeHorDist < minSwipeX) {
+					if (motionVal == (int) Motion.NONE) {
+						motionVal = (int) Motion.FORWARD;
+					}
+				} else if (swipeHorDist > swipeVerDist) {
+					if (swipeHorDist > minSwipeX) {
+						if (Mathf.Sign (touch.position.x - startPos.x) > 0) {
+							if (motionVal == (int) Motion.NONE) {	
+								motionVal = (int) Motion.ROTATE_LEFT;
+							}
+						} else {
+							if (motionVal == (int) Motion.NONE) {
+								motionVal = (int) Motion.ROTATE_RIGHT;
+							}
+						}
+					} 
+				} else {
+					if (swipeVerDist > minSwipeY) {
+						if (Mathf.Sign (touch.position.y - startPos.y) > 0) {
+							if (motionVal == (int) Motion.NONE) {
+								motionVal = (int) Motion.ROTATE_UP;
+							}
+						} else {
+							if (motionVal == (int) Motion.NONE) {
+								motionVal = (int) Motion.ROTATE_DOWN;
+							}
+						}
+					}
+				}
+				break;
+			}
+		}
+	}
+
 	private void forwardMotion () {
 //		changeFloor ();
 		if (motionVal == (int) Motion.FORWARD) {
