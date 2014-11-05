@@ -160,6 +160,7 @@ public class PlayerMotion : MonoBehaviour {
 
 				transform.position = newPos;
 				forwardCheck ();
+				changeFloor ();
 			} else {
 				moveVal = 3f * Mathf.Lerp (0f, intervalDistance, Time.deltaTime);
 				transform.Translate (Vector3.forward * moveVal);
@@ -249,9 +250,11 @@ public class PlayerMotion : MonoBehaviour {
 	private void changeFloor () {
 		Vector3 dwn = transform.TransformDirection (Vector3.down);
 		RaycastHit test;
-		Physics.Raycast (transform.position, dwn, out test);
-		test.transform.gameObject.renderer.material = testMaterial;
-		Debug.Log ("test1" + test.transform.gameObject);
+		Physics.Raycast (transform.position, dwn, out test, intervalDistance);
+		if (!test.transform.gameObject.collider.isTrigger) {
+			test.transform.gameObject.renderer.material = testMaterial;
+		}
+//		Debug.Log ("test1" + test.transform.gameObject);
 	}
 
 	//DELETE EVENTUALLY
@@ -262,7 +265,7 @@ public class PlayerMotion : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.UpArrow)&& !obstacleInFront || Input.GetKeyDown (KeyCode.W)&& !obstacleInFront) {
 				motionVal = (int) Motion.FORWARD;
 				motionLocked = true;
-				changeFloor ();
+//				changeFloor ();
 			}
 			//Rotating
 			if (Input.GetKeyDown (KeyCode.RightArrow) || Input.GetKeyDown (KeyCode.D)) {
