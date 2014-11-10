@@ -65,4 +65,15 @@ public class Instantiation : MonoBehaviour {
 	void Update () {
 		
 	}
+	public void setX(int xVal) {
+		xsize = xVal;
+	}
+
+	public void setY(int yVal) {
+		ysize = yVal;
+	}
+
+	public void setZ(int zVal) {
+		zsize = zVal;
+	}
 }

@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Maze Generation\Program.cs" />
      <Compile Include="Assets\Scripts\PauseButton.cs" />
      <Compile Include="Assets\Scripts\PlayerMotion.cs" />
+     <Compile Include="Assets\Scripts\Sliders.cs" />
      <Compile Include="Assets\Scripts\StepMotion.cs" />
      <Compile Include="Assets\Scripts\TimeGUI.cs" />
   </ItemGroup>
