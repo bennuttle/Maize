@@ -118,10 +118,12 @@ public class PlayerMotion : MonoBehaviour {
 						if (Mathf.Sign (touch.position.x - startPos.x) > 0) {
 							if (motionVal == (int) Motion.NONE) {	
 								motionVal = (int) Motion.ROTATE_LEFT;
+								changeFloor ();
 							}
 						} else {
 							if (motionVal == (int) Motion.NONE) {
 								motionVal = (int) Motion.ROTATE_RIGHT;
+								changeFloor ();
 							}
 						}
 					} 
@@ -130,10 +132,12 @@ public class PlayerMotion : MonoBehaviour {
 						if (Mathf.Sign (touch.position.y - startPos.y) > 0) {
 							if (motionVal == (int) Motion.NONE) {
 								motionVal = (int) Motion.ROTATE_UP;
+								changeFloor ();
 							}
 						} else {
 							if (motionVal == (int) Motion.NONE) {
 								motionVal = (int) Motion.ROTATE_DOWN;
+								changeFloor ();
 							}
 						}
 					}
@@ -178,7 +182,7 @@ public class PlayerMotion : MonoBehaviour {
 				transform.Rotate (new Vector3 (0, -1 * (tempRot - 90f), 0));
 				motionVal = (int) Motion.NONE;
 				tempRot = 0f;
-
+				changeFloor ();
 				motionLocked = false;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
@@ -191,7 +195,7 @@ public class PlayerMotion : MonoBehaviour {
 				transform.Rotate (new Vector3 (0, -1 * (tempRot + 90f), 0));
 				motionVal = (int) Motion.NONE;
 				tempRot = 0f;
-
+				changeFloor ();
 				motionLocked = false;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
@@ -204,7 +208,7 @@ public class PlayerMotion : MonoBehaviour {
 				transform.Rotate (-1 * new Vector3((tempOr + 90f), 0, 0));
 				motionVal = (int) Motion.NONE;
 				tempOr = 0f;
-
+				changeFloor ();
 				motionLocked = false;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
@@ -217,7 +221,7 @@ public class PlayerMotion : MonoBehaviour {
 				transform.Rotate (-1 * new Vector3((tempOr - 90f), 0, 0));
 				motionVal = (int) Motion.NONE;
 				tempOr = 0f;
-
+				changeFloor ();
 				motionLocked = false;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
@@ -251,7 +255,7 @@ public class PlayerMotion : MonoBehaviour {
 		Vector3 dwn = transform.TransformDirection (Vector3.down);
 		RaycastHit test;
 		Physics.Raycast (transform.position, dwn, out test, intervalDistance);
-		if (!test.transform.gameObject.collider.isTrigger) {
+		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
 			test.transform.gameObject.renderer.material = testMaterial;
 		}
 //		Debug.Log ("test1" + test.transform.gameObject);

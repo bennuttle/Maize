@@ -8,6 +8,8 @@ public class TimeGUI : MonoBehaviour
 	int minutes = 0;
 	string displayTime;
 	PlayerMotion timeRefScript;
+	public GUISkin customSkin;
+//	var menuSkin : GUISkin;
 
 	void Update()
 	{
@@ -30,19 +32,21 @@ public class TimeGUI : MonoBehaviour
 	}
 	void OnGUI()
 	{
+		GUI.skin = customSkin;
+//		GUILayout.Button ("I am a custom styled Button", "button3");
 		displayTime = minutes.ToString ("00") + ":" + seconds.ToString ("00") + ":" + milliseconds.ToString (".00").Replace (".", "");
-		GUI.Box(new Rect(Screen.width * 0.35f, Screen.height * 0.9f, Screen.width * 0.3f, Screen.height * 0.1f),"<size=40>" + displayTime + "</size>");
+		GUI.Box(new Rect(Screen.width * 0.35f, Screen.height * 0.9f, Screen.width * 0.3f, Screen.height * 0.1f),"<size=40>" + displayTime + "</size>", "time");
 
 		if(timeRefScript.getIsPaused() && !timeRefScript.getIsDone()) {
 //			GUI.Window(new Rect(Screen.width * 0.25f,Screen.height * 0.25f,Screen.width * 0.5f,Screen.height * 0.5f));
 			GUI.BeginGroup (new Rect(Screen.width * 0.25f,Screen.height * 0.25f,Screen.width * 0.5f,Screen.height * 0.6f));
-			if(GUI.Button (new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.2f), "<color=#e5d416><size=40>Resume</size></color>")) {
+			if(GUI.Button (new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.15f), "Resume","button1")) {
 				timeRefScript.unPause();
 			}
-			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.2f), "<color=#547fa4><size=40>Restart Maze</size></color>")) {
+			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.15f), "Restart Maze","button2")) {
 				Application.LoadLevel(1);
 			}
-			if(GUI.Button (new Rect(0,Screen.height * 0.4f,Screen.width * 0.5f,Screen.height * 0.2f), "<color=#d96262><size=40>Main Menu</size></color>")) {
+			if(GUI.Button (new Rect(0,Screen.height * 0.4f,Screen.width * 0.5f,Screen.height * 0.15f), "Main Menu","button3")) {
 				Application.LoadLevel(0);
 			}
 			
@@ -51,11 +55,11 @@ public class TimeGUI : MonoBehaviour
 
 		if(timeRefScript.getIsDone()) {
 			GUI.BeginGroup (new Rect(Screen.width * 0.25f,Screen.height * 0.25f,Screen.width * 0.5f,Screen.height * 0.6f));
-			GUI.Box(new Rect(0,Screen.height * 0.1f,Screen.width * 0.5f,Screen.height * 0.1f), "<color=#e5d416><size=32>You Won! Your time was "+ displayTime +"</size></color>");
-			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.2f), "<color=#547fa4><size=40>Restart Maze</size></color>")) {
+			GUI.Box(new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.15f), "You Won! Time: "+ displayTime, "button1");
+			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.15f), "Restart Maze", "button2")) {
 				Application.LoadLevel(1);
 			}
-			if(GUI.Button (new Rect(0,Screen.height * 0.4f,Screen.width * 0.5f,Screen.height * 0.2f), "<color=#d96262><size=40>Main Menu</size></color>")) {
+			if(GUI.Button (new Rect(0,Screen.height * 0.4f,Screen.width * 0.5f,Screen.height * 0.15f), "Main Menu", "button3")) {
 				Application.LoadLevel(0);
 			}
 
