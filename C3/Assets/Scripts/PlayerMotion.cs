@@ -57,7 +57,7 @@ public class PlayerMotion : MonoBehaviour {
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 		
-		checkPause ();
+
 		obstacleInFront = forwardCheck ();
 
 //		Debug.Log (obstacleInFront);
@@ -70,6 +70,7 @@ public class PlayerMotion : MonoBehaviour {
 	void LateUpdate () {
 		forwardMotion ();
 		rotateMotion ();
+		checkPause ();
 	}
 
 /**
@@ -149,7 +150,7 @@ public class PlayerMotion : MonoBehaviour {
 
 	private void forwardMotion () {
 //		changeFloor ();
-		if (motionVal == (int) Motion.FORWARD) {
+		if (motionVal == (int) Motion.FORWARD && !isPaused && !isDone) {
 			if (tempMove > intervalDistance) {
 				//transform.Translate (Vector3.forward * (tempMove - intervalDistance));
 				motionVal = (int) Motion.NONE;
@@ -177,7 +178,7 @@ public class PlayerMotion : MonoBehaviour {
 
 
 	private void rotateMotion () {
-		if (motionVal == (int) Motion.ROTATE_LEFT) {
+		if (motionVal == (int) Motion.ROTATE_LEFT && !isPaused && !isDone) {
 			if (tempRot > 90f) {
 				transform.Rotate (new Vector3 (0, -1 * (tempRot - 90f), 0));
 				motionVal = (int) Motion.NONE;
@@ -190,7 +191,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempRot += rotateVal;
 				motionLocked = true;
 			}
-		} else if (motionVal == (int) Motion.ROTATE_RIGHT) {
+		} else if (motionVal == (int) Motion.ROTATE_RIGHT && !isPaused && !isDone) {
 			if (tempRot < -90) {
 				transform.Rotate (new Vector3 (0, -1 * (tempRot + 90f), 0));
 				motionVal = (int) Motion.NONE;
@@ -203,7 +204,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempRot += rotateVal;
 				motionLocked = true;
 			}
-		} else if (motionVal == (int) Motion.ROTATE_UP) {
+		} else if (motionVal == (int) Motion.ROTATE_UP && !isPaused && !isDone) {
 			if (tempOr < -90f) {
 				transform.Rotate (-1 * new Vector3((tempOr + 90f), 0, 0));
 				motionVal = (int) Motion.NONE;
@@ -216,7 +217,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempOr += rotateVal;
 				motionLocked = true;
 			}
-		} else if (motionVal == (int) Motion.ROTATE_DOWN) {
+		} else if (motionVal == (int) Motion.ROTATE_DOWN && !isPaused && !isDone) {
 			if (tempOr > 90f) {
 				transform.Rotate (-1 * new Vector3((tempOr - 90f), 0, 0));
 				motionVal = (int) Motion.NONE;
