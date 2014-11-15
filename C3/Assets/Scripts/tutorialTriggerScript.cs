@@ -16,7 +16,6 @@ public class tutorialTriggerScript : MonoBehaviour {
 	}
 
 	void OnTriggerStay () {
-		Debug.Log ("Trigger entered!");
 		t.enabled = true;
 	}
 
