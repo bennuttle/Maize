@@ -242,6 +242,10 @@ public class PlayerMotion : MonoBehaviour {
 //			test.transform.gameObject.renderer.material = testMaterial;
 //		}
 //		return Physics.Raycast (transform.position, fwd, intervalDistance);
+
+		//FOR ASH'S TUTORIAL LEVEL
+		if (!Physics.Raycast (transform.position, fwd)) return false;
+
 		Physics.Raycast (transform.position, fwd, out test);
 		if (test.transform.gameObject.collider.isTrigger) {
 //			Debug.Log("test1"+test.transform.gameObject.collider.isTrigger);
