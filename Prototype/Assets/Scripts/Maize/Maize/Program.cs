@@ -10,14 +10,15 @@ namespace Maize
     {
         static void Main(string[] args)
         {
-            //MazeGraph testGraph = new MazeGraph(3, 3, 3);
+
+            MazeGraph testGraph = new MazeGraph(10);
             //testGraph.BreadthFirstSearch(testGraph[0, 0, 0]);
 
-            Player test = Player.loadPlayer("C:\\Users\\Ben_2\\Desktop\\player.xml");
+            //Player test = Player.loadPlayer("C:\\Users\\Ben_2\\Desktop\\player.xml");
 
-            test.stepsTaken++;
+            //test.stepsTaken++;
 
-            test.savePlayer("C:\\Users\\Ben_2\\Desktop\\player.xml");
+            //test.savePlayer("C:\\Users\\Ben_2\\Desktop\\player.xml");
 
             Console.ReadLine();
         }

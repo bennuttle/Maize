@@ -66,6 +66,97 @@ namespace Maize
 
         }
 
+        public MazeGraph(int difficulty)
+        {
+            int dimX, dimY, dimZ;
+            Random rand = new Random();
+            int dim1 = rand.Next(1, difficulty - 2);
+            int dim2 = rand.Next(1, difficulty - dim1 - 1);
+            int dim3 = Math.Max(1, difficulty - dim1 - dim2);
+
+            int permutation = rand.Next(0, 6);
+            switch (permutation)
+            {
+                case 0:
+                    dimX = dim1;
+                    dimY = dim2;
+                    dimZ = dim3;
+                    break;
+                case 1:
+                    dimX = dim2;
+                    dimY = dim3;
+                    dimZ = dim1;
+                    break;
+                case 2:
+                    dimX = dim3;
+                    dimY = dim2;
+                    dimZ = dim1;
+                    break;
+                case 3:
+                    dimX = dim2;
+                    dimY = dim1;
+                    dimZ = dim3;
+                    break;
+                case 4:
+                    dimX = dim1;
+                    dimY = dim3;
+                    dimZ = dim2;
+                    break;
+                default:
+                    dimX = dim3;
+                    dimY = dim1;
+                    dimZ = dim2;
+                    break;
+            }
+
+
+            // If bad people give us bad input, fix it.
+            // Code does not respond happily to zero / negative
+            // values for a dimension. What would such a maze look like?
+            dimX = dimX < 1 ? 1 : dimX;
+            dimY = dimY < 1 ? 1 : dimY;
+            dimZ = dimZ < 1 ? 1 : dimZ;
+
+            sizeX = dimX;
+            sizeY = dimY;
+            sizeZ = dimZ;
+            //Allocate space for graph
+            this.graph = new MazeNode[dimX, dimY, dimZ];
+
+            //Set of edges for Kruskal's algorithm
+            edges = new ArrayList();
+
+            //Initializa all the nodes, giving XYZ coordinates
+            for (int x = 0; x < dimX; x++)
+            {
+                for (int y = 0; y < dimY; y++)
+                {
+                    for (int z = 0; z < dimZ; z++)
+                    {
+                        //Create the nodes
+                        graph[x, y, z] = new MazeNode(x, y, z);
+                    }
+                }
+            }
+
+            // Create our set of edges to be considered.
+            // Taking all of these edges would make a complete graph
+            generateEdges(dimX, dimY, dimZ);
+
+            // Run Kruskal's MST algorithm
+            // Graph connections are stored at the node level
+            generateMaze(dimX, dimY, dimZ);
+
+            //Arbitrarily define the start of our maze at 0, 0, 0
+            start = graph[0, 0, 0];
+
+            //Search the graph, maintaining an order of nodes we reached
+            List<MazeNode> orderedVertices = BreadthFirstSearch(start);
+            //Our goal node is the last one reached by BFS
+            goal = orderedVertices[orderedVertices.Count - 1];
+
+        }
+
         public MazeNode this[int x, int y, int z]
         {
             get { return graph[x, y, z]; }
