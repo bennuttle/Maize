@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 
 namespace Maize
 {
@@ -171,7 +170,7 @@ namespace Maize
             Console.WriteLine("Node Location: " + x_loc + ", " + y_loc + ", " + z_loc + "\n");
         }
 
-        public MazeNode find()
+        private MazeNode find()
         {
             if (union_find_parent == this)
             {

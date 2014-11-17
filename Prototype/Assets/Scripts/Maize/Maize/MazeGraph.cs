@@ -22,20 +22,9 @@ namespace Maize
             // If bad people give us bad input, fix it.
             // Code does not respond happily to zero / negative
             // values for a dimension. What would such a maze look like?
-            if (dimX < 1)
-            {
-                dimX = 1;
-            }
-
-            if (dimY < 1)
-            {
-                dimY = 1;
-            }
-
-            if (dimZ < 1)
-            {
-                dimZ = 1;
-            }
+            dimX = dimX < 1 ? 1 : dimX;
+            dimY = dimY < 1 ? 1 : dimY;
+            dimZ = dimZ < 1 ? 1 : dimZ;
 
             sizeX = dimX;
             sizeY = dimY;
@@ -192,6 +181,7 @@ namespace Maize
             //While there are adjacent, unexplored nodes to search
             while (open.Count > 0)
             {
+                //Consider the 'best' node, as weighted by f-score
                 current = open.Min();
                 //If we've reached our goal
                 if (current == goal)
