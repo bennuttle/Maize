@@ -128,7 +128,7 @@ namespace Maize
 
                 if (chance < completionPercentByDifficulty[easierIndex--])
                 {
-                    return new MazeGraph(difficulty);
+                    return new MazeGraph(easierIndex);
                 }
 
             }
