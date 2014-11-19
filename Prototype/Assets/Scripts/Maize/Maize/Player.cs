@@ -41,11 +41,13 @@ namespace Maize
             }
         }
 
+        //Application.PersistentDataPath + "fileName.xml"
         public void savePlayer(String saveFilePath)
         {
             SaveLoad.Serialize<Player>(this, saveFilePath);
         }
 
+        //Application.PersistentDataPath + "fileName.xml"
         public static Player loadPlayer(String savedFilePath)
         {
             try

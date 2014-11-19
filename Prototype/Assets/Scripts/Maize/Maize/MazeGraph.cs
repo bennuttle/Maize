@@ -68,11 +68,14 @@ namespace Maize
 
         public MazeGraph(int difficulty)
         {
+
+            /* difficulty = x + y + z implementation */
+            /*
             int dimX, dimY, dimZ;
             Random rand = new Random();
-            int dim1 = rand.Next(1, difficulty - 2);
-            int dim2 = rand.Next(1, difficulty - dim1 - 1);
-            int dim3 = Math.Max(1, difficulty - dim1 - dim2);
+            int dim1 = rand.Next(1, Math.Max(1, difficulty - 2));
+            int dim2 = rand.Next(1, Math.Max(1, difficulty - dim1 - 1));
+            int dim3 = Math.Max(1, Math.Max(1, difficulty - dim1 - dim2));
 
             int permutation = rand.Next(0, 6);
             switch (permutation)
@@ -107,8 +110,12 @@ namespace Maize
                     dimY = dim1;
                     dimZ = dim2;
                     break;
-            }
+            } */
 
+            Random rand = new Random();
+            int dimX = rand.Next(2, Math.Max(2, difficulty * 2));
+            int dimY = rand.Next(2, Math.Max(2, difficulty * 2));
+            int dimZ = rand.Next(2, Math.Max(2, difficulty * 2));
 
             // If bad people give us bad input, fix it.
             // Code does not respond happily to zero / negative
