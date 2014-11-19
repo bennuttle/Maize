@@ -5,6 +5,7 @@ public class MarksController : MonoBehaviour {
 	//public Texture bg;
 	//public Texture exp;
 	public Texture marks;
+	public Texture achievements;
 	public Texture marksRecs;
 	//public Texture shop;
 	public GUISkin gSkin;
@@ -14,7 +15,7 @@ public class MarksController : MonoBehaviour {
 	//private float expWidth = Screen.width*.75f;
 	private float markWidth = Screen.width*.6f;
 	public Vector2 scrollPosition;
-	//private float shopWidth = Screen.width*.45f;
+	public GUIStyle levelStyle;
 
 	//create button size as ratio of original image size. 
 
@@ -25,8 +26,12 @@ public class MarksController : MonoBehaviour {
 
 		//draws header
 		GUI.DrawTexture (new Rect(0,0,Screen.width,buttonHeight), marks);
-		scrollPosition = GUI.BeginScrollView(new Rect(0, buttonHeight, Screen.width, Screen.height-buttonHeight), scrollPosition, 
+		GUI.DrawTexture (new Rect(0,buttonHeight,Screen.width,(int)(buttonHeight/2)), marksRecs);
+		GUI.Label(new Rect((int)(buttonHeight/2),(int)(buttonHeight*1.1),Screen.width,(int)(buttonHeight/2)),"L E V E L   17", levelStyle);
+		scrollPosition = GUI.BeginScrollView(new Rect(0, buttonHeight+(int)(buttonHeight/2), Screen.width, Screen.height-buttonHeight), scrollPosition, 
 		                                     new Rect(0, 0, Screen.width-30, buttonHeight*5),new GUIStyle(),new GUIStyle());
+	
+
 		GUILayout.BeginVertical();
 
 		//marks box borders
@@ -35,6 +40,7 @@ public class MarksController : MonoBehaviour {
 		GUI.DrawTexture (new Rect(0,buttonHeight*2,Screen.width,buttonHeight), marksRecs);
 		GUI.DrawTexture (new Rect(0,buttonHeight*3,Screen.width,buttonHeight), marksRecs);
 		GUI.DrawTexture (new Rect(0,buttonHeight*4,Screen.width,buttonHeight), marksRecs);
+
 
 		//draw mark labels
 		GUI.contentColor = Color.black;
@@ -45,6 +51,8 @@ public class MarksController : MonoBehaviour {
 
 		GUILayout.EndVertical();
 		GUI.EndScrollView();
+
+		GUI.DrawTexture (new Rect(0,Screen.height-(int)(buttonHeight/2),Screen.width,(int)(buttonHeight/2)), achievements);
 
 //		if(GUI.Button (new Rect(Screen.width * 0.55f, buttonHeight * 3.5f,shopWidth,buttonHeight), shop)) {
 //			
