@@ -84,6 +84,11 @@ namespace Maize
 
         }
 
+        public void startMaze(MazeGraph theMaze)
+        {
+            myMaze = new CurrentMaze(theMaze);
+        }
+
         public MazeGraph freePlayMaze()
         {
             double[] completionPercentByDifficulty = new double[mazesAttemptedByDifficulty.Length];
