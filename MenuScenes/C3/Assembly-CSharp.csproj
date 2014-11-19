@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AchievementsController.cs" />
      <Compile Include="Assets\Scripts\BttnController.cs" />
      <Compile Include="Assets\Scripts\MarksController.cs" />
   </ItemGroup>
