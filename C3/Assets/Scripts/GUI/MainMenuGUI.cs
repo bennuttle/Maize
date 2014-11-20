@@ -25,7 +25,7 @@ public class MainMenuGUI : MonoBehaviour {
 		}
 		
 		if(GUI.Button (new Rect(Screen.width * 0.5f,Screen.height * 0.35f,Screen.width * 0.5f,Screen.height * 0.1f), "Marks","button3")) {
-//			Application.LoadLevel(3);
+			Application.LoadLevel(3);
 		}
 
 		GUI.Box (new Rect (Screen.width * 0.08f, Screen.height * 0.85f, Screen.width * 0.2f, Screen.height * 0.1f), logo);

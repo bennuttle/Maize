@@ -24,10 +24,11 @@ public class BttnController : MonoBehaviour {
 
 		if(GUI.Button (new Rect(Screen.width * 0.25f, buttonHeight * 1.5f,expWidth,buttonHeight), exp)) {
 			//load level
-			Application.LoadLevel(1);
+
 		}
 		if(GUI.Button (new Rect(Screen.width * 0.4f,buttonHeight * 2.5f,markWidth,buttonHeight), marks)) {
-			
+			//load Marks level
+			Application.LoadLevel(1);
 		}
 		if(GUI.Button (new Rect(Screen.width * 0.55f, buttonHeight * 3.5f,shopWidth,buttonHeight), shop)) {
 			
@@ -36,8 +37,6 @@ public class BttnController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.Quit();
-		}
+	
 	}
 }

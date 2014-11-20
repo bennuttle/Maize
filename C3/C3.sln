@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{3ABE124E-CC82-BF2C-2E22-E6058F38C50C}") = "C3", "Assembly-CSharp.csproj", "{1CD24B2A-646B-6A98-C3CA-05D1D43526F1}"
 EndProject
+Project("{3ABE124E-CC82-BF2C-2E22-E6058F38C50C}") = "C3", "Assembly-UnityScript.unityproj", "{14397172-9815-5677-6378-B8E6C7BE692C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,15 @@ Global
 		{1CD24B2A-646B-6A98-C3CA-05D1D43526F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CD24B2A-646B-6A98-C3CA-05D1D43526F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CD24B2A-646B-6A98-C3CA-05D1D43526F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14397172-9815-5677-6378-B8E6C7BE692C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14397172-9815-5677-6378-B8E6C7BE692C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14397172-9815-5677-6378-B8E6C7BE692C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14397172-9815-5677-6378-B8E6C7BE692C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																															GlobalSection(MonoDevelopProperties) = preSolution
+																																																																		GlobalSection(MonoDevelopProperties) = preSolution
 =======
 															GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> addingScenes
