@@ -11,7 +11,7 @@ namespace Maize
         static void Main(string[] args)
         {
 
-            MazeGraph testGraph = new MazeGraph(2);
+            //MazeGraph testGraph = new MazeGraph(2);
             //testGraph.BreadthFirstSearch(testGraph[0, 0, 0]);
 
             //Player test = Player.loadPlayer("C:\\Users\\Ben_2\\Desktop\\player.xml");
