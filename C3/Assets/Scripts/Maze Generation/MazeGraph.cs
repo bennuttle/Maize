@@ -77,6 +77,61 @@ namespace Maize
 
         }
 
+		public MazeGraph(int difficulty)
+		{
+			Random rand = new Random();
+			int dimX = rand.Next(2, Math.Max(2, difficulty * 2));
+			int dimY = rand.Next(2, Math.Max(2, difficulty * 2));
+			int dimZ = rand.Next(2, Math.Max(2, difficulty * 2));
+			
+			// If bad people give us bad input, fix it.
+			// Code does not respond happily to zero / negative
+			// values for a dimension. What would such a maze look like?
+			dimX = dimX < 1 ? 1 : dimX;
+			dimY = dimY < 1 ? 1 : dimY;
+			dimZ = dimZ < 1 ? 1 : dimZ;
+			
+			sizeX = dimX;
+			sizeY = dimY;
+			sizeZ = dimZ;
+			//Allocate space for graph
+			this.graph = new MazeNode[dimX, dimY, dimZ];
+			
+			//Set of edges for Kruskal's algorithm
+			edges = new ArrayList();
+			
+			//Initializa all the nodes, giving XYZ coordinates
+			for (int x = 0; x < dimX; x++)
+			{
+				for (int y = 0; y < dimY; y++)
+				{
+					for (int z = 0; z < dimZ; z++)
+					{
+						//Create the nodes
+						graph[x, y, z] = new MazeNode(x, y, z);
+					}
+				}
+			}
+			
+			// Create our set of edges to be considered.
+			// Taking all of these edges would make a complete graph
+			generateEdges(dimX, dimY, dimZ);
+			
+			// Run Kruskal's MST algorithm
+			// Graph connections are stored at the node level
+			generateMaze(dimX, dimY, dimZ);
+			
+			//Arbitrarily define the start of our maze at 0, 0, 0
+			start = graph[0, 0, 0];
+			
+			//Search the graph, maintaining an order of nodes we reached
+			List<MazeNode> orderedVertices = BreadthFirstSearch(start);
+			//Our goal node is the last one reached by BFS
+			goal = orderedVertices[orderedVertices.Count - 1];
+
+		}
+
+
         public MazeNode this[int x, int y, int z]
         {
             get { return graph[x, y, z]; }

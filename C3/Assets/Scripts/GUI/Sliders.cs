@@ -45,7 +45,8 @@ public class Sliders : MonoBehaviour {
 //			yolo.setY((int)diffSlider);
 //			yolo.setZ((int)diffSlider);
 //			mazeGenerate.SetActive(true);
-			yolo.createMaze((int)diffSlider,(int)diffSlider,(int)diffSlider);
+//			yolo.createMaze((int)diffSlider,(int)diffSlider,(int)diffSlider);
+			yolo.createMaze((int)diffSlider);
 		}
 	}
 }

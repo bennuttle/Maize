@@ -258,11 +258,31 @@ public class PlayerMotion : MonoBehaviour {
 
 	private void changeFloor () {
 		Vector3 dwn = transform.TransformDirection (Vector3.down);
+		Vector3 rght = transform.TransformDirection (Vector3.right);
+		Vector3 lft = transform.TransformDirection (Vector3.left);
+		Vector3 top = transform.TransformDirection (Vector3.up);
+		Vector3 bck = transform.TransformDirection (Vector3.back);
 		RaycastHit test;
 		Physics.Raycast (transform.position, dwn, out test, intervalDistance);
 		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
 			test.transform.gameObject.renderer.material = testMaterial;
 		}
+		Physics.Raycast (transform.position, top, out test, intervalDistance);
+		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
+			test.transform.gameObject.renderer.material = testMaterial;
+		}
+//		Physics.Raycast (transform.position, lft, out test, intervalDistance);
+//		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
+//			test.transform.gameObject.renderer.material = testMaterial;
+//		}
+//		Physics.Raycast (transform.position, rght, out test, intervalDistance);
+//		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
+//			test.transform.gameObject.renderer.material = testMaterial;
+//		}
+//		Physics.Raycast (transform.position, bck, out test, intervalDistance);
+//		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
+//			test.transform.gameObject.renderer.material = testMaterial;
+//		}
 //		Debug.Log ("test1" + test.transform.gameObject);
 	}
 
