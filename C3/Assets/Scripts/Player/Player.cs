@@ -16,6 +16,7 @@ namespace Maize
 		public double totalMazeTime { get; set; }
 		public int[] mazesAttemptedByDifficulty { get; set; }
 		public int[] mazesCompletedByDifficulty { get; set; }
+		public int experience { get; set;}
 		
 		public double averageWastedSteps { get; set; }
 		
@@ -32,6 +33,7 @@ namespace Maize
 			totalMazeTime = 0;
 			mazesCompletedByDifficulty = new int[20];
 			mazesAttemptedByDifficulty = new int[20];
+			experience = 0;
 			
 			averageWastedSteps = 0;
 			
@@ -41,8 +43,8 @@ namespace Maize
 				mazesAttemptedByDifficulty[index] = 0;
 			}
 		}
-		
-		//Application.PersistentDataPath + "fileName.xml"
+
+		//Application.persistentDataPath + "fileName.xml"
 		public void savePlayer(String saveFilePath)
 		{
 			SaveLoad.Serialize<Player>(this, saveFilePath);
@@ -59,6 +61,21 @@ namespace Maize
 			{
 				return new Player();
 			}
+		}
+		/*
+		 * Calculates level based on experience count. Uses Arthimetic Progression.
+		 * ie: 
+		 * Level 1: 0 exp
+		 * Level 2: 50 exp
+		 * Level 3: 150 exp
+		 * Level 4: 300 exp
+		 * Level 5: 500 exp etc.
+		 * 
+		 * Reverse formula could be useful for progress bar: X = 25 * L * L - 25 * L
+		 * where L is the desired level, and X is the necessary exp to reach said level. 
+		 */
+		public int getLevel(){
+			return (int)Math.Floor (25 + Math.Sqrt (625 + 100 * experience)) / 50;
 		}
 		
 		private static double convertTimetoMS(int minutes, int seconds, int milliseconds)

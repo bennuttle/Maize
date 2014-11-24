@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 7fcc3cc15144747498eadca94e37a3ef
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - marks: {instanceID: 0}
+  - achievements: {fileID: 2800000, guid: 38ec70e09ea5b4eea9380ea9000611d3, type: 3}
+  - marksRecs: {instanceID: 0}
+  - gSkin: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
