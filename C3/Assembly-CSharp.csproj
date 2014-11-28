@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Maze Generation\MazeNode.cs" />
      <Compile Include="Assets\Scripts\Maze Generation\Program.cs" />
      <Compile Include="Assets\Scripts\PauseButton.cs" />
+     <Compile Include="Assets\Scripts\Player\Player.cs" />
+     <Compile Include="Assets\Scripts\Player\SaveLoad.cs" />
      <Compile Include="Assets\Scripts\PlayerMotion.cs" />
      <Compile Include="Assets\Scripts\PreferencesCreation.cs" />
      <Compile Include="Assets\Scripts\Refactored\BttnController.cs" />
