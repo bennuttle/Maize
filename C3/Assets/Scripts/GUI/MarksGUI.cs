@@ -79,7 +79,7 @@ public class MarksGUI : MonoBehaviour {
 		GUI.Box (new Rect (Screen.width * 0.505f, Screen.height * 0.61f, Screen.width * 0.495f, Screen.height * 0.2f), new GUIContent (max), GUI.skin.GetStyle ("totalTurnsBody"));
 
 		//Draw box around level's label. (Needs cleaning up)
-		GUI.DrawTexture (new Rect (0.0f, Screen.height * 0.8f, Screen.width, Screen.height * 0.1f), marksRecs);
+		GUI.DrawTexture (new Rect (0.0f, Screen.height * 0.81f, Screen.width, Screen.height * 0.09f), marksRecs);
 
 		//Draws Level Label
 		GUI.Label(new Rect (Screen.width* 0.3f, Screen.height * 0.82f, Screen.width, Screen.height * 0.1f), "L E V E L  "+ PlayerPrefs.GetInt("Level"), levelStyle);
