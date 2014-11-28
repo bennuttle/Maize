@@ -38,8 +38,8 @@ public class Sliders : MonoBehaviour {
 		GUI.skin.button.active.background = rText;
 		if(GUI.Button(new Rect(Screen.width*0.2f,Screen.height*0.625f, Screen.width*0.6f, Screen.height*0.15f), "<size=40>Play!</size>")) {
 			this.gameObject.SetActive(false);
-
-
+			PlayerPrefs.SetInt ("CurrentMaze", (int)diffSlider);
+			PlayerPrefs.Save ();
 			Instantiation yolo = (Instantiation)mazeGenerate.GetComponent("Instantiation");
 //			yolo.setX((int)diffSlider);
 //			yolo.setY((int)diffSlider);

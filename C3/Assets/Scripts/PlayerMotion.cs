@@ -33,6 +33,12 @@ public class PlayerMotion : MonoBehaviour {
 	private float screenWidth;
 	private float screenHeight;
 
+	//Current Maze Information
+	private int stepsForward;
+	private int turns;
+	private int oldTotalSteps;
+	private int oldTotalTurns;
+
 	// Use this for initialization
 	void Start () {
 		obstacleInFront = forwardCheck ();
@@ -46,9 +52,14 @@ public class PlayerMotion : MonoBehaviour {
 		isDone = false;
 		isPaused = false;
 
+		stepsForward = 0;
+		turns = 0;
+		oldTotalSteps = PlayerPrefs.GetInt ("TotalSteps");
+		oldTotalTurns = PlayerPrefs.GetInt ("TotalTurns");
+
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
-		//Debug.Log (screenWidth + " , " + screenHeight);
+
 	}
 	
 	// Update is called once per frame
@@ -71,33 +82,9 @@ public class PlayerMotion : MonoBehaviour {
 		forwardMotion ();
 		rotateMotion ();
 		checkPause ();
-	}
 
-/**
-	private void tapDetection () {
-		if (Input.touchCount > 0) {
-			Touch t = Input.touches[0];
-			motionLocked = true;
-
-			if (t.position.x < screenHeight / 3f) {
-				motionVal = (int) Motion.ROTATE_UP;
-				return;
-			} else if (t.position.x > screenHeight * (2f/3f)) {
-				motionVal = (int) Motion.ROTATE_DOWN;
-				return;
-			} else if (t.position.y < screenWidth / 3f) {
-				motionVal = (int) Motion.ROTATE_LEFT;
-				return;
-			} else if (t.position.y > screenWidth * (2f/3f)) {
-				motionVal = (int) Motion.ROTATE_RIGHT;
-				return;
-			} else {
-				motionVal = (int) Motion.FORWARD;
-				return;
-			}
-		}
+		updateCurrentMazeStats ();		
 	}
-*/
 
 	private void SwipeChecker () {
 		if (Input.touchCount > 0) {
@@ -116,7 +103,7 @@ public class PlayerMotion : MonoBehaviour {
 					}
 				} else if (swipeHorDist > swipeVerDist) {
 					if (swipeHorDist > minSwipeX) {
-						if (Mathf.Sign (touch.position.x - startPos.x) > 0) {
+						if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
 							if (motionVal == (int) Motion.NONE) {	
 								motionVal = (int) Motion.ROTATE_LEFT;
 								changeFloor ();
@@ -130,7 +117,7 @@ public class PlayerMotion : MonoBehaviour {
 					} 
 				} else {
 					if (swipeVerDist > minSwipeY) {
-						if (Mathf.Sign (touch.position.y - startPos.y) > 0) {
+						if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
 							if (motionVal == (int) Motion.NONE) {
 								motionVal = (int) Motion.ROTATE_UP;
 								changeFloor ();
@@ -166,6 +153,8 @@ public class PlayerMotion : MonoBehaviour {
 				transform.position = newPos;
 				forwardCheck ();
 				changeFloor ();
+
+				stepsForward++;
 			} else {
 				moveVal = 3f * Mathf.Lerp (0f, intervalDistance, Time.deltaTime);
 				transform.Translate (Vector3.forward * moveVal);
@@ -185,6 +174,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempRot = 0f;
 				changeFloor ();
 				motionLocked = false;
+				turns++;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
 				transform.Rotate (new Vector3 (0, rotateVal, 0));
@@ -198,6 +188,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempRot = 0f;
 				changeFloor ();
 				motionLocked = false;
+				turns++;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
 				transform.Rotate (new Vector3 (0, rotateVal, 0));
@@ -211,6 +202,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempOr = 0f;
 				changeFloor ();
 				motionLocked = false;
+				turns++;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, -90f, Time.deltaTime);
 				transform.Rotate (new Vector3(rotateVal, 0, 0));
@@ -224,6 +216,7 @@ public class PlayerMotion : MonoBehaviour {
 				tempOr = 0f;
 				changeFloor ();
 				motionLocked = false;
+				turns++;
 			} else {
 				rotateVal = 3f * Mathf.Lerp (0f, 90f, Time.deltaTime);
 				transform.Rotate (new Vector3(rotateVal, 0, 0));
@@ -320,6 +313,10 @@ public class PlayerMotion : MonoBehaviour {
 	}
 
 	public void finish() {
+		if (PlayerPrefs.GetInt ("CurrentMaze") > PlayerPrefs.GetInt ("LargestMaze")) {
+			PlayerPrefs.SetInt ("LargestMaze", PlayerPrefs.GetInt ("CurrentMaze"));
+		}
+		PlayerPrefs.Save ();
 		this.isDone = true;
 	}
 
@@ -342,5 +339,14 @@ public class PlayerMotion : MonoBehaviour {
 
 	public void unPause() {
 		isPaused = false;
+	}
+
+	private void updateCurrentMazeStats () {
+		PlayerPrefs.SetInt ("Steps", stepsForward);
+		PlayerPrefs.SetInt ("Turns", turns);
+
+		PlayerPrefs.SetInt ("TotalSteps", oldTotalSteps + stepsForward);
+		PlayerPrefs.SetInt ("TotalTurns", oldTotalTurns + turns);
+		PlayerPrefs.SetFloat ("TotalTimeSpent", PlayerPrefs.GetFloat ("TotalTimeSpent") + Time.deltaTime);
 	}
 }
