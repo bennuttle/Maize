@@ -9,6 +9,8 @@ public class PreferencesCreation : MonoBehaviour {
 	//If it is not, instantiate it.
 	void Start () {
 		if (!PlayerPrefs.HasKey ("TotalSteps"))	PlayerPrefs.SetInt ("TotalSteps", 0);
+		if (!PlayerPrefs.HasKey ("Level"))	PlayerPrefs.SetInt ("Level", 0);
+		if (!PlayerPrefs.HasKey ("Experience"))	PlayerPrefs.SetInt ("Experience", 0);
 		if (!PlayerPrefs.HasKey ("TotalTurns"))	PlayerPrefs.SetFloat ("TotalTimeSpent", 0f);
 		if (!PlayerPrefs.HasKey("TotalTimeSpent")) PlayerPrefs.SetInt ("TotalTurns", 0);
 		if (!PlayerPrefs.HasKey("LargestMaze")) PlayerPrefs.SetInt ("LargestMaze", 0);

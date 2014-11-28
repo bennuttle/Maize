@@ -36,7 +36,7 @@ public class AchievementsController : MonoBehaviour {
 		GUILayout.BeginVertical();
 		buttonCounter = 0;
 		GUI.contentColor = Color.black;
-		print(unlockedList.Length);
+		//print(unlockedList.Length);
 		//achievements box borders
 		for(int i = 0; i < unlockedList.Length;i++) {
 

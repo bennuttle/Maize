@@ -18,7 +18,7 @@ public class MarksController : MonoBehaviour {
 	public Vector2 scrollPosition;
 	public GUIStyle levelStyle;
 	public GUIStyle achievementsStyle;
-	//public Player player = Player.loadPlayer(Application.persistentDataPath + "playersavefile.xml");
+//	public Player player = Player.loadPlayer(Application.persistentDataPath + "playersavefile.xml");
 
 	
 	//create button size as ratio of original image size. 
@@ -34,7 +34,7 @@ public class MarksController : MonoBehaviour {
 		//draws header
 		GUI.DrawTexture (new Rect(0,0,Screen.width,buttonHeight), marks);
 		GUI.DrawTexture (new Rect(0,buttonHeight,Screen.width,(int)(buttonHeight/2)), marksRecs);
-		//GUI.Label(new Rect((int)(buttonHeight/2),(int)(buttonHeight*1.1),Screen.width,(int)(buttonHeight/2)),"L E V E L  " + player.getLevel(), levelStyle);
+		GUI.Label(new Rect((int)(buttonHeight/2),(int)(buttonHeight*1.1),Screen.width,(int)(buttonHeight/2)), "L E V E L  "+ PlayerPrefs.GetInt("Level"), levelStyle);
 		scrollPosition = GUI.BeginScrollView(new Rect(0, buttonHeight+(int)(buttonHeight/2), Screen.width, Screen.height-(int)(buttonHeight*2.4)), scrollPosition, 
 		                                     new Rect(0, 0, Screen.width-30, (int)(buttonHeight*5)),new GUIStyle(),new GUIStyle());
 	
@@ -50,16 +50,16 @@ public class MarksController : MonoBehaviour {
 
 
 		//draw mark labels
-		//GUI.contentColor = Color.black;
-		//GUI.Label(new Rect(buttonHeight,(int)(buttonHeight*.5),Screen.width,(int)(buttonHeight/2)), player.mazesCompleted + " Mazes Completed");
-		//GUI.Label(new Rect(buttonHeight+6,(int)(buttonHeight*1.5),Screen.width,(int)(buttonHeight/2)), player.stepsTaken + " Total Steps");
-		//GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*2.5),Screen.width,(int)(buttonHeight/2)), player.mazesAttempted + " Total Mazes Explored");
-		//GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*3.5),Screen.width,(int)(buttonHeight/2)), "Highest Difficulty: " + player.mostDifficultLevel);
-		//GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*4.5),Screen.width,(int)(buttonHeight/2)), player.totalMazeTime + " Total Exploration Time");
+//		GUI.contentColor = Color.black;
+//		GUI.Label(new Rect(buttonHeight,(int)(buttonHeight*.5),Screen.width,(int)(buttonHeight/2)), player.mazesCompleted + " Mazes Completed");
+//		GUI.Label(new Rect(buttonHeight+6,(int)(buttonHeight*1.5),Screen.width,(int)(buttonHeight/2)), player.stepsTaken + " Total Steps");
+//		GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*2.5),Screen.width,(int)(buttonHeight/2)), player.mazesAttempted + " Total Mazes Explored");
+//		GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*3.5),Screen.width,(int)(buttonHeight/2)), "Highest Difficulty: " + player.mostDifficultLevel);
+//		GUI.Label(new Rect(buttonHeight+4,(int)(buttonHeight*4.5),Screen.width,(int)(buttonHeight/2)), player.totalMazeTime + " Total Exploration Time");
 
-//		if(GUI.Button (new Rect(0,(int)(buttonHeight*5),Screen.width,(int)(buttonHeight)), achievements, new GUIStyle())) {
-//			Application.LoadLevel(4);
-//		}
+		if(GUI.Button (new Rect(0,(int)(buttonHeight*5),Screen.width,(int)(buttonHeight)), achievements, new GUIStyle())) {
+			Application.LoadLevel(4);
+		}
 
 		GUILayout.EndVertical();
 		GUI.EndScrollView();

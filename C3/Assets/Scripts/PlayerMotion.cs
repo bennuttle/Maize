@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Maize;
+using System;
 
 public class PlayerMotion : MonoBehaviour {
 
@@ -38,6 +40,8 @@ public class PlayerMotion : MonoBehaviour {
 	private int turns;
 	private int oldTotalSteps;
 	private int oldTotalTurns;
+	private int level;
+	private
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +63,9 @@ public class PlayerMotion : MonoBehaviour {
 
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
+	
+
+
 
 	}
 	
@@ -312,11 +319,23 @@ public class PlayerMotion : MonoBehaviour {
 		return isDone;
 	}
 
+	public static int getLevel(int experience){
+		return (int)Math.Floor (25 + Math.Sqrt (625 + 100 * experience)) / 50;
+	}
+	public static int getExperience(int steps){
+		return (steps / 2);
+	}
 	public void finish() {
 		if (PlayerPrefs.GetInt ("CurrentMaze") > PlayerPrefs.GetInt ("LargestMaze")) {
 			PlayerPrefs.SetInt ("LargestMaze", PlayerPrefs.GetInt ("CurrentMaze"));
 		}
+
+		int totalExp = PlayerPrefs.GetInt("Experience") + getExperience(stepsForward);
+		PlayerPrefs.SetInt("Experience", totalExp);
+		PlayerPrefs.SetInt("Level", getLevel(totalExp));
+
 		PlayerPrefs.Save ();
+
 		this.isDone = true;
 	}
 
