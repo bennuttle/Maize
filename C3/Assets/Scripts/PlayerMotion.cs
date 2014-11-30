@@ -109,30 +109,62 @@ public class PlayerMotion : MonoBehaviour {
 						motionVal = (int) Motion.FORWARD;
 					}
 				} else if (swipeHorDist > swipeVerDist) {
-					if (swipeHorDist > minSwipeX) {
-						if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
-							if (motionVal == (int) Motion.NONE) {	
-								motionVal = (int) Motion.ROTATE_LEFT;
-								changeFloor ();
-							}
-						} else {
-							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_RIGHT;
-								changeFloor ();
+					if (PlayerPrefs.GetInt("InvertX") == 0) {
+						if (swipeHorDist > minSwipeX) {
+							if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
+								if (motionVal == (int) Motion.NONE) {	
+									motionVal = (int) Motion.ROTATE_LEFT;
+									changeFloor ();
+								}
+							} else {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_RIGHT;
+									changeFloor ();
+								}
 							}
 						}
-					} 
-				} else {
-					if (swipeVerDist > minSwipeY) {
-						if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
-							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_UP;
-								changeFloor ();
+					} else {
+						if (swipeHorDist < minSwipeX) {
+							if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
+								if (motionVal == (int) Motion.NONE) {	
+									motionVal = (int) Motion.ROTATE_LEFT;
+									changeFloor ();
+								}
+							} else {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_RIGHT;
+									changeFloor ();
+								}
 							}
-						} else {
-							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_DOWN;
-								changeFloor ();
+						}
+					}
+				} else {
+					if (PlayerPrefs.GetInt("InvertY") == 0) {
+						if (swipeVerDist > minSwipeY) {
+							if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_UP;
+									changeFloor ();
+								}
+							} else {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_DOWN;
+									changeFloor ();
+								}
+							}
+						}
+					} else {
+						if (swipeVerDist < minSwipeY) {
+							if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_UP;
+									changeFloor ();
+								}
+							} else {
+								if (motionVal == (int) Motion.NONE) {
+									motionVal = (int) Motion.ROTATE_DOWN;
+									changeFloor ();
+								}
 							}
 						}
 					}
