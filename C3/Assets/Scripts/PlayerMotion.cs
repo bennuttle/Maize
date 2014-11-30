@@ -370,7 +370,10 @@ public class PlayerMotion : MonoBehaviour {
 		}
 	}
 	void OnTriggerEnter(Collider col) {
-		finish ();
+//		Debug.Log (col.name);
+		if(col.tag == "Finish") {
+			finish ();
+		}
 	}
 
 	public void unPause() {
