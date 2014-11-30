@@ -69,6 +69,9 @@ public class AchievementsGUI : MonoBehaviour {
 		GUI.DrawTexture (new Rect (0.0f, Screen.height * 0.2f, Screen.width, Screen.height * 0.1f), yellow);
 		GUI.DrawTexture (new Rect (0.0f, (Screen.height * 0.3f)+5, Screen.width, Screen.height * 0.1f), yellow);
 		GUI.DrawTexture (new Rect (0.0f, (Screen.height * 0.4f) + 10, Screen.width, Screen.height * 0.1f), yellow);
+		GUI.DrawTexture (new Rect (0.0f, (Screen.height * 0.5f)+15, Screen.width, Screen.height * 0.1f), yellow);
+		GUI.DrawTexture (new Rect (0.0f, (Screen.height * 0.6f)+20, Screen.width, Screen.height * 0.1f), yellow);
+		GUI.DrawTexture (new Rect (0.0f, (Screen.height * 0.7f) + 25, Screen.width, Screen.height * 0.1f), yellow);
 ////
 //		GUI.DrawTexture (new Rect (Screen.width * 0.505f, Screen.height * 0.2f, Screen.width * 0.495f, Screen.height * 0.1f), yellow);
 //
