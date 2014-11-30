@@ -17,6 +17,9 @@ public class PreferencesCreation : MonoBehaviour {
 		if (!PlayerPrefs.HasKey ("Experience"))	
 						PlayerPrefs.SetInt ("Experience", 1);
 
+		if (!PlayerPrefs.HasKey ("MazesCompleted"))	
+						PlayerPrefs.SetInt ("MazesCompleted", 0);
+
 		if (!PlayerPrefs.HasKey ("TotalTurns"))	
 						PlayerPrefs.SetFloat ("TotalTimeSpent", 0f);
 

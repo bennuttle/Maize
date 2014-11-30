@@ -21,6 +21,7 @@ public class MarksGUI : MonoBehaviour {
 	private int currentLevel;
 	private float progressWidth;
 	private float progressRatio;
+	private int mazesCompleted;
 
 
 
@@ -30,6 +31,7 @@ public class MarksGUI : MonoBehaviour {
 		totalSteps = PlayerPrefs.GetInt ("TotalSteps");
 		totalTurns = PlayerPrefs.GetInt ("TotalTurns");
 		maxLevel = PlayerPrefs.GetInt ("LargestMaze");
+		mazesCompleted = PlayerPrefs.GetInt ("MazesCompleted");
 		exp = PlayerPrefs.GetInt ("Experience");
 		currentLevel = PlayerPrefs.GetInt ("Level");
 		progressWidth = Screen.width * 0.84f;
@@ -67,8 +69,8 @@ public class MarksGUI : MonoBehaviour {
 		GUI.Box (new Rect (0.0f, Screen.height * 0.3f, Screen.width * 0.495f, Screen.height * 0.2f), new GUIContent (totalSteps.ToString ()), GUI.skin.GetStyle ("totalStepsBody"));
 
 		//Total Turns Achivements
-		GUI.Box (new Rect (Screen.width * 0.505f, Screen.height * 0.2f, Screen.width * 0.495f, Screen.height * 0.1f), new GUIContent ("Total Turns"), GUI.skin.GetStyle ("totalTurnsHeader"));
-		GUI.Box (new Rect (Screen.width * 0.505f, Screen.height * 0.3f, Screen.width * 0.495f, Screen.height * 0.2f), new GUIContent (totalTurns.ToString ()), GUI.skin.GetStyle ("totalTurnsBody"));
+		GUI.Box (new Rect (Screen.width * 0.505f, Screen.height * 0.2f, Screen.width * 0.495f, Screen.height * 0.1f), new GUIContent ("Total Mazes Completed"), GUI.skin.GetStyle ("totalTurnsHeader"));
+		GUI.Box (new Rect (Screen.width * 0.505f, Screen.height * 0.3f, Screen.width * 0.495f, Screen.height * 0.2f), new GUIContent (mazesCompleted.ToString()), GUI.skin.GetStyle ("totalTurnsBody"));
 
 		//Time Played
 		GUI.Box (new Rect (0.0f, Screen.height * 0.51f, Screen.width * 0.495f, Screen.height * 0.1f), new GUIContent ("Time Played"), GUI.skin.GetStyle ("totalTurnsHeader"));
@@ -82,14 +84,14 @@ public class MarksGUI : MonoBehaviour {
 		GUI.DrawTexture (new Rect (0.0f, Screen.height * 0.81f, Screen.width, Screen.height * 0.09f), marksRecs);
 
 		//Draws Level Label
-		GUI.Label(new Rect (Screen.width* 0.3f, Screen.height * 0.82f, Screen.width, Screen.height * 0.1f), "L E V E L  "+ PlayerPrefs.GetInt("Level"), levelStyle);
+		GUI.Label(new Rect (Screen.width* 0.4f, Screen.height * 0.82f, Screen.width, Screen.height * 0.15f), "L E V E L  "+ PlayerPrefs.GetInt("Level"), levelStyle);
 
 		//drawing progress bar
 		GUI.DrawTexture (new Rect (Screen.width*0.08f, Screen.height * 0.86f, progressWidth, Screen.height * 0.03f), grey);
 		GUI.DrawTexture (new Rect (Screen.width*0.08f, Screen.height * 0.87f, progressWidth*progressRatio, Screen.height * 0.01f), green);
 
 		//Logo in the bottom left
-		GUI.Box (new Rect (Screen.width * 0.04f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), logo);
+		GUI.Box (new Rect (Screen.width * 0.039f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), logo);
 
 //		//Achievements Button 
 //		if (GUI.Button (new Rect (Screen.width * 0.26f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), achievementsIcon)) {

@@ -349,6 +349,7 @@ public class PlayerMotion : MonoBehaviour {
 		int totalExp = PlayerPrefs.GetInt("Experience") + getExperience(stepsForward);
 		PlayerPrefs.SetInt("Experience", totalExp);
 		PlayerPrefs.SetInt("Level", getLevel(totalExp));
+		PlayerPrefs.SetInt("MazesCompleted", PlayerPrefs.GetInt("MazesCompleted")+1);
 
 		PlayerPrefs.Save ();
 
