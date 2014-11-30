@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using Maize;
 using System;
@@ -111,27 +111,43 @@ public class PlayerMotion : MonoBehaviour {
 				} else if (swipeHorDist > swipeVerDist) {
 					if (swipeHorDist > minSwipeX) {
 						if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
-							if (motionVal == (int) Motion.NONE) {	
-								motionVal = (int) Motion.ROTATE_LEFT;
+							if (motionVal == (int) Motion.NONE) {
+								if (PlayerPrefs.GetInt ("InvertX") == 0) {
+									motionVal = (int) Motion.ROTATE_LEFT;
+								} else {
+									motionVal = (int) Motion.ROTATE_RIGHT;
+								}
 								changeFloor ();
 							}
 						} else {
 							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_RIGHT;
+								if (PlayerPrefs.GetInt ("InvertX") == 0) {
+									motionVal = (int) Motion.ROTATE_RIGHT;
+								} else {
+									motionVal = (int) Motion.ROTATE_LEFT;
+								}
 								changeFloor ();
 							}
 						}
-					} 
+					}
 				} else {
 					if (swipeVerDist > minSwipeY) {
 						if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
 							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_UP;
+								if (PlayerPrefs.GetInt ("InvertY") == 0) {
+									motionVal = (int) Motion.ROTATE_UP;
+								} else {
+									motionVal = (int) Motion.ROTATE_DOWN;
+								}
 								changeFloor ();
 							}
 						} else {
 							if (motionVal == (int) Motion.NONE) {
-								motionVal = (int) Motion.ROTATE_DOWN;
+								if (PlayerPrefs.GetInt ("InvertY") == 0) {
+									motionVal = (int) Motion.ROTATE_DOWN;
+								} else {
+									motionVal = (int) Motion.ROTATE_UP;
+								}
 								changeFloor ();
 							}
 						}

@@ -91,10 +91,10 @@ public class MarksGUI : MonoBehaviour {
 		//Logo in the bottom left
 		GUI.Box (new Rect (Screen.width * 0.04f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), logo);
 
-		//Achievements Button 
-		if (GUI.Button (new Rect (Screen.width * 0.26f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), achievementsIcon)) {
-			Application.LoadLevel (4);
-		}
+//		//Achievements Button 
+//		if (GUI.Button (new Rect (Screen.width * 0.26f, Screen.height * 0.9f, Screen.width * 0.2f, Screen.height * 0.1f), achievementsIcon)) {
+//			Application.LoadLevel (4);
+//		}
 		//Back button in the bottom right
 		if (GUI.Button (new Rect (Screen.width * 0.6f, Screen.height * 0.9f, Screen.width * 0.4f, Screen.height * 0.1f), new GUIContent ("Back"), GUI.skin.GetStyle ("backButton"))) {
 			Application.LoadLevel (0);
