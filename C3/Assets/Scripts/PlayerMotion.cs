@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using Maize;
 using System;
@@ -109,62 +109,46 @@ public class PlayerMotion : MonoBehaviour {
 						motionVal = (int) Motion.FORWARD;
 					}
 				} else if (swipeHorDist > swipeVerDist) {
-					if (PlayerPrefs.GetInt("InvertX") == 0) {
-						if (swipeHorDist > minSwipeX) {
-							if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
-								if (motionVal == (int) Motion.NONE) {	
+					if (swipeHorDist > minSwipeX) {
+						if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
+							if (motionVal == (int) Motion.NONE) {
+								if (PlayerPrefs.GetInt ("InvertX") == 0) {
 									motionVal = (int) Motion.ROTATE_LEFT;
-									changeFloor ();
-								}
-							} else {
-								if (motionVal == (int) Motion.NONE) {
+								} else {
 									motionVal = (int) Motion.ROTATE_RIGHT;
-									changeFloor ();
 								}
+								changeFloor ();
 							}
-						}
-					} else {
-						if (swipeHorDist < minSwipeX) {
-							if (Mathf.Sign (touch.position.x - startPos.x) < 0) {
-								if (motionVal == (int) Motion.NONE) {	
-									motionVal = (int) Motion.ROTATE_LEFT;
-									changeFloor ();
-								}
-							} else {
-								if (motionVal == (int) Motion.NONE) {
+						} else {
+							if (motionVal == (int) Motion.NONE) {
+								if (PlayerPrefs.GetInt ("InvertX") == 0) {
 									motionVal = (int) Motion.ROTATE_RIGHT;
-									changeFloor ();
+								} else {
+									motionVal = (int) Motion.ROTATE_LEFT;
 								}
+								changeFloor ();
 							}
 						}
 					}
 				} else {
-					if (PlayerPrefs.GetInt("InvertY") == 0) {
-						if (swipeVerDist > minSwipeY) {
-							if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
-								if (motionVal == (int) Motion.NONE) {
+					if (swipeVerDist > minSwipeY) {
+						if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
+							if (motionVal == (int) Motion.NONE) {
+								if (PlayerPrefs.GetInt ("InvertY") == 0) {
 									motionVal = (int) Motion.ROTATE_UP;
-									changeFloor ();
-								}
-							} else {
-								if (motionVal == (int) Motion.NONE) {
+								} else {
 									motionVal = (int) Motion.ROTATE_DOWN;
-									changeFloor ();
 								}
+								changeFloor ();
 							}
-						}
-					} else {
-						if (swipeVerDist < minSwipeY) {
-							if (Mathf.Sign (touch.position.y - startPos.y) < 0) {
-								if (motionVal == (int) Motion.NONE) {
-									motionVal = (int) Motion.ROTATE_UP;
-									changeFloor ();
-								}
-							} else {
-								if (motionVal == (int) Motion.NONE) {
+						} else {
+							if (motionVal == (int) Motion.NONE) {
+								if (PlayerPrefs.GetInt ("InvertY") == 0) {
 									motionVal = (int) Motion.ROTATE_DOWN;
-									changeFloor ();
+								} else {
+									motionVal = (int) Motion.ROTATE_UP;
 								}
+								changeFloor ();
 							}
 						}
 					}

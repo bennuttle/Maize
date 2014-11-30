@@ -88,7 +88,7 @@ public class TimeGUI : MonoBehaviour
 			if(GUI.Button (new Rect(0,0,Screen.width * 0.25f,Screen.height * 0.15f), "Resume","button4")) {
 				timeRefScript.unPause();
 			}
-			if(GUI.Button (new Rect(Screen.width * 0.26f,0,Screen.width * 0.25f,Screen.height * 0.15f), "Restart","button4")) {
+			if(GUI.Button (new Rect(Screen.width * 0.26f,0,Screen.width * 0.25f,Screen.height * 0.15f), "New Maze","button4")) {
 				Application.LoadLevel(1);
 			}
 			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.25f,Screen.height * 0.15f), "Invert X", invertXButtonString)) {

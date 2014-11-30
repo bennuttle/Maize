@@ -8,6 +8,9 @@ public class Sliders : MonoBehaviour {
 	public Texture2D bText;
 	public Texture2D yText;
 	private float heightConst = Screen.height * .1f;
+
+	public GUISkin marksSkin;
+
 	// Use this for initialization
 	void Start () {
 		diffSlider = 1;
@@ -19,6 +22,8 @@ public class Sliders : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		GUI.skin = marksSkin;
+
 		GUI.Label (new Rect (Screen.width * 0.25f, Screen.height * 0.2f, Screen.width * 0.55f, heightConst), "<color=#df4343><size=40>Difficulty: " + diffSlider +"</size></color>");
 
 		GUI.skin.horizontalSlider.fixedHeight = heightConst;
@@ -36,6 +41,8 @@ public class Sliders : MonoBehaviour {
 		GUI.skin.button.normal.background = rText;
 		GUI.skin.button.hover.background = rText;
 		GUI.skin.button.active.background = rText;
+		GUI.skin.button.alignment = TextAnchor.MiddleCenter;
+		GUI.skin.button.fontSize = 60;
 		if(GUI.Button(new Rect(Screen.width*0.2f,Screen.height*0.625f, Screen.width*0.6f, Screen.height*0.15f), "<size=40>Play!</size>")) {
 			this.gameObject.SetActive(false);
 			PlayerPrefs.SetInt ("CurrentMaze", (int)diffSlider);
@@ -47,6 +54,11 @@ public class Sliders : MonoBehaviour {
 //			mazeGenerate.SetActive(true);
 //			yolo.createMaze((int)diffSlider,(int)diffSlider,(int)diffSlider);
 			yolo.createMaze((int)diffSlider);
+		}
+
+		//Back button in the bottom right
+		if (GUI.Button (new Rect (Screen.width * 0.6f, Screen.height * 0.9f, Screen.width * 0.4f, Screen.height * 0.1f), new GUIContent ("Back"), GUI.skin.GetStyle ("backButton"))) {
+			Application.LoadLevel (0);
 		}
 	}
 }
