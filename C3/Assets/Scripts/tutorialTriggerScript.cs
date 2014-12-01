@@ -6,6 +6,7 @@ public class tutorialTriggerScript : MonoBehaviour {
 	public bool boxOne;
 	public string text;
 	public bool isStart;
+	public GUISkin tutSkin;
 
 	// Use this for initialization
 	void Start () {
@@ -20,12 +21,14 @@ public class tutorialTriggerScript : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter () {
+	void OnTriggzerEnter () {
 		boxOne = true;
 	}
 	void OnGUI() {
+		GUI.skin = tutSkin;
 		if (boxOne) {
-		GUI.Box(new Rect(Screen.width * 0.2f, Screen.height * 0.5f, Screen.width * 0.6f, Screen.height * 0.05f),text);
+			GUI.skin.box.fontSize = 60;
+			GUI.Box(new Rect(Screen.width * 0.1f, Screen.height * 0.25f, Screen.width * 0.9f, Screen.height * 0.5f),text);
 		}
 	}
 	void OnTriggerStay () {

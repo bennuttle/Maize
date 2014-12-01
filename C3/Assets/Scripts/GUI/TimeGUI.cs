@@ -115,7 +115,7 @@ public class TimeGUI : MonoBehaviour
 		if(timeRefScript.getIsDone()) {
 			GUI.BeginGroup (new Rect(Screen.width * 0.25f,Screen.height * 0.25f,Screen.width * 0.5f,Screen.height * 0.6f));
 			GUI.Box(new Rect(0,0,Screen.width * 0.5f,Screen.height * 0.15f), "You Won! Time: "+ displayTime, "button1");
-			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.15f), "Restart Maze", "button2")) {
+			if(GUI.Button (new Rect(0,Screen.height * 0.2f,Screen.width * 0.5f,Screen.height * 0.15f), "New Maze", "button2")) {
 				Application.LoadLevel(1);
 			}
 			if(GUI.Button (new Rect(0,Screen.height * 0.4f,Screen.width * 0.5f,Screen.height * 0.15f), "Main Menu", "button3")) {
