@@ -354,6 +354,10 @@ public class PlayerMotion : MonoBehaviour {
 		PlayerPrefs.Save ();
 
 		this.isDone = true;
+		GameObject test = GameObject.FindGameObjectWithTag("End");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(true);
+		}
 	}
 
 	public bool getIsPaused() {
@@ -366,7 +370,19 @@ public class PlayerMotion : MonoBehaviour {
 				Application.Quit(); 
 			} else {
 				isPaused = true;
+				GameObject test = GameObject.FindGameObjectWithTag("Pause");
+				foreach (Transform child in test.transform) {
+					child.gameObject.SetActive(true);
+				}
 			}
+		}
+	}
+
+	public void pauseButton() {
+		isPaused = true;
+		GameObject test = GameObject.FindGameObjectWithTag("Pause");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(true);
 		}
 	}
 	void OnTriggerEnter(Collider col) {
@@ -378,6 +394,10 @@ public class PlayerMotion : MonoBehaviour {
 
 	public void unPause() {
 		isPaused = false;
+		GameObject test = GameObject.FindGameObjectWithTag("Pause");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(false);
+		}
 	}
 
 	private void updateCurrentMazeStats () {

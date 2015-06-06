@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class MainMenuHandler : MonoBehaviour {
@@ -20,6 +21,14 @@ public class MainMenuHandler : MonoBehaviour {
 
 	public void selectButton(int button) {
 		Application.LoadLevel (button);
+	}
+
+	public void playGame() {
+		GameObject difficulty = GameObject.FindGameObjectWithTag ("DifficultyLevel");
+		DontDestroyOnLoad (difficulty);
+		Application.LoadLevel (4);
+//		Instantiation yolo = (Instantiation)mazeGenerate.GetComponent("Instantiation");
+//		yolo.createMaze((int)difficulty.GetComponent<Text>().text);
 	}
 
 	public void getLevel() {

@@ -101,7 +101,7 @@ public class Instantiation : MonoBehaviour {
 			}
 		}
 		Instantiate (EndBox, new Vector3 ((mazeGoal.x_loc) * 10, (mazeGoal.y_loc) * 10 + 5, (mazeGoal.z_loc) * 10), EndBox.transform.rotation);
-		Instantiate (characterRef);
+//		Instantiate (characterRef);
 	}
 
 	// Update is called once per frame
