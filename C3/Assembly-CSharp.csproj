@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\2.0\DifficultyDisplay.cs" />
      <Compile Include="Assets\Scripts\2.0\MainMenuHandler.cs" />
+     <Compile Include="Assets\Scripts\2.0\Marks.cs" />
      <Compile Include="Assets\Scripts\AchievementsController.cs" />
      <Compile Include="Assets\Scripts\EndLevel.cs" />
      <Compile Include="Assets\Scripts\GUI\AchievementsGUI.cs" />
