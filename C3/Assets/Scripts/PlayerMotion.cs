@@ -263,7 +263,7 @@ public class PlayerMotion : MonoBehaviour {
 		//if (!Physics.Raycast (transform.position, fwd)) return false;
 
 		Physics.Raycast (transform.position, fwd, out test);
-		if (test.transform.gameObject.collider.isTrigger) {
+		if (test.transform.gameObject.GetComponent<Collider>().isTrigger) {
 //			Debug.Log("test1"+test.transform.gameObject.collider.isTrigger);
 			return false;
 		} else {
@@ -280,12 +280,12 @@ public class PlayerMotion : MonoBehaviour {
 		Vector3 bck = transform.TransformDirection (Vector3.back);
 		RaycastHit test;
 		Physics.Raycast (transform.position, dwn, out test, intervalDistance);
-		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
-			test.transform.gameObject.renderer.material = testMaterial;
+		if (test.transform != null && !test.transform.gameObject.GetComponent<Collider>().isTrigger) {
+			test.transform.gameObject.GetComponent<Renderer>().material = testMaterial;
 		}
 		Physics.Raycast (transform.position, top, out test, intervalDistance);
-		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
-			test.transform.gameObject.renderer.material = testMaterial;
+		if (test.transform != null && !test.transform.gameObject.GetComponent<Collider>().isTrigger) {
+			test.transform.gameObject.GetComponent<Renderer>().material = testMaterial;
 		}
 //		Physics.Raycast (transform.position, lft, out test, intervalDistance);
 //		if (test.transform != null && !test.transform.gameObject.collider.isTrigger) {
@@ -354,6 +354,10 @@ public class PlayerMotion : MonoBehaviour {
 		PlayerPrefs.Save ();
 
 		this.isDone = true;
+		GameObject test = GameObject.FindGameObjectWithTag("End");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(true);
+		}
 	}
 
 	public bool getIsPaused() {
@@ -366,7 +370,19 @@ public class PlayerMotion : MonoBehaviour {
 				Application.Quit(); 
 			} else {
 				isPaused = true;
+				GameObject test = GameObject.FindGameObjectWithTag("Pause");
+				foreach (Transform child in test.transform) {
+					child.gameObject.SetActive(true);
+				}
 			}
+		}
+	}
+
+	public void pauseButton() {
+		isPaused = true;
+		GameObject test = GameObject.FindGameObjectWithTag("Pause");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(true);
 		}
 	}
 	void OnTriggerEnter(Collider col) {
@@ -378,6 +394,10 @@ public class PlayerMotion : MonoBehaviour {
 
 	public void unPause() {
 		isPaused = false;
+		GameObject test = GameObject.FindGameObjectWithTag("Pause");
+		foreach (Transform child in test.transform) {
+			child.gameObject.SetActive(false);
+		}
 	}
 
 	private void updateCurrentMazeStats () {

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 40ba84f0147afa441a37124f5d7c1db0
+timeCreated: 1433603788
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
@@ -9,7 +11,10 @@ MonoImporter:
   - ceiling: {fileID: 400000, guid: 21086688ddaa842499556983ef028c9f, type: 2}
   - right: {fileID: 400000, guid: d0133353aa86346fd8f2a99893166520, type: 2}
   - left: {fileID: 400000, guid: f40a6c7f9eb634d84bdb98eae4b2c3f7, type: 2}
-  - EndBox: {instanceID: 0}
+  - EndBox: {fileID: 400000, guid: 5019c96003ada42639a75a0c9bfa5afd, type: 2}
+  - characterRef: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
